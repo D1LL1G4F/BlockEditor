@@ -9,7 +9,8 @@ class Linker
 public:
     Port *srcPort;
     Port *destPort;
-    Linker();
+
+    Linker(Port *source, Port *destination);
 };
 
 #endif // LINKER_H

@@ -7,11 +7,13 @@
 
 using namespace std;
 
+class Block;
+
 
 class Port
 {
 public:
-    Port(string portType);
+    Port(string portType, Block *parentPtr);
 
     string name;
     double value;

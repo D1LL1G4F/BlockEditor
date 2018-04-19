@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class Port;
+
 
 class Block
 {

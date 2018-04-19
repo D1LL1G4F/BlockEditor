@@ -1,5 +1,5 @@
 #include <iostream>
-#include "block.h"
+#include "src/block.h"
 
 using namespace std;
 

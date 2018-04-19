@@ -186,6 +186,7 @@ Makefile: ../BlockEditorQt/BlockEditorQt.pro C:/Qt/5.5/mingw492_32/mkspecs/win32
 		C:/Qt/5.5/mingw492_32/mkspecs/features/resources.prf \
 		C:/Qt/5.5/mingw492_32/mkspecs/features/moc.prf \
 		C:/Qt/5.5/mingw492_32/mkspecs/features/win32/opengl.prf \
+		C:/Qt/5.5/mingw492_32/mkspecs/features/uic.prf \
 		C:/Qt/5.5/mingw492_32/mkspecs/features/win32/windows.prf \
 		C:/Qt/5.5/mingw492_32/mkspecs/features/testcase_targets.prf \
 		C:/Qt/5.5/mingw492_32/mkspecs/features/exceptions.prf \
@@ -193,6 +194,7 @@ Makefile: ../BlockEditorQt/BlockEditorQt.pro C:/Qt/5.5/mingw492_32/mkspecs/win32
 		C:/Qt/5.5/mingw492_32/mkspecs/features/lex.prf \
 		../BlockEditorQt/BlockEditorQt.pro \
 		C:/Qt/5.5/mingw492_32/lib/qtmaind.prl \
+		C:/Qt/5.5/mingw492_32/lib/Qt5Widgets.prl \
 		C:/Qt/5.5/mingw492_32/lib/Qt5Gui.prl \
 		C:/Qt/5.5/mingw492_32/lib/Qt5Core.prl
 	$(QMAKE) -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ..\BlockEditorQt\BlockEditorQt.pro
@@ -323,6 +325,7 @@ C:/Qt/5.5/mingw492_32/mkspecs/features/qt.prf:
 C:/Qt/5.5/mingw492_32/mkspecs/features/resources.prf:
 C:/Qt/5.5/mingw492_32/mkspecs/features/moc.prf:
 C:/Qt/5.5/mingw492_32/mkspecs/features/win32/opengl.prf:
+C:/Qt/5.5/mingw492_32/mkspecs/features/uic.prf:
 C:/Qt/5.5/mingw492_32/mkspecs/features/win32/windows.prf:
 C:/Qt/5.5/mingw492_32/mkspecs/features/testcase_targets.prf:
 C:/Qt/5.5/mingw492_32/mkspecs/features/exceptions.prf:
@@ -330,6 +333,7 @@ C:/Qt/5.5/mingw492_32/mkspecs/features/yacc.prf:
 C:/Qt/5.5/mingw492_32/mkspecs/features/lex.prf:
 ../BlockEditorQt/BlockEditorQt.pro:
 C:/Qt/5.5/mingw492_32/lib/qtmaind.prl:
+C:/Qt/5.5/mingw492_32/lib/Qt5Widgets.prl:
 C:/Qt/5.5/mingw492_32/lib/Qt5Gui.prl:
 C:/Qt/5.5/mingw492_32/lib/Qt5Core.prl:
 qmake: FORCE

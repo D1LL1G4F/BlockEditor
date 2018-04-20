@@ -170,6 +170,7 @@ void MainWindow::createButtons()
 
     QWidget *central = new QWidget;
     central->setLayout(layout);
+    central->setMaximumWidth(150);
     setCentralWidget(central);
 }
 

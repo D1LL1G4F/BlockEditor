@@ -28,6 +28,8 @@ public:
    static const int ITEM_LT;
    static const int ITEM_LINKER;
 
+   int getSelectedItem();
+
 private slots:
 
    void saveScheme();

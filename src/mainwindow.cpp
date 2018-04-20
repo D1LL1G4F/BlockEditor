@@ -16,6 +16,13 @@ MainWindow::MainWindow()
     createButtons();
     createMenu();
     createCanvas();
+    // set default selected item as ITEM_AND
+    selectItem(ITEM_AND);
+}
+
+int MainWindow::getSelectedItem()
+{
+    return selectedItem;
 }
 
 void MainWindow::saveScheme()
@@ -36,6 +43,47 @@ void MainWindow::loadScheme()
 void MainWindow::selectItem(const int itemType)
 {
     selectedItem = itemType;
+    buttonAND->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonNAND->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonOR->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonXOR->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonADD->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonSUB->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonGT->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonLT->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonLinker->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+
+    switch (selectedItem) {
+    case ITEM_ADD:
+        buttonADD->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_AND:
+        buttonAND->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_GT:
+        buttonGT->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_LINKER:
+        buttonLinker->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_LT:
+        buttonLT->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_NAND:
+        buttonNAND->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_OR:
+        buttonOR->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_SUB:
+        buttonSUB->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_XOR:
+        buttonXOR->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::simulateAll()

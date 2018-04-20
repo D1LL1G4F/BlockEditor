@@ -6,8 +6,10 @@
 #include <QVBoxLayout>
 #include <QMenuBar>
 #include <QMenu>
+#include <QSignalMapper>
 #include <QAction>
 #include <vector>
+#include <QDebug>
 
 class MainWindow : public QMainWindow
 {
@@ -16,13 +18,22 @@ class MainWindow : public QMainWindow
 public:
    MainWindow();
 
+   static const int ITEM_AND;
+   static const int ITEM_NAND;
+   static const int ITEM_OR;
+   static const int ITEM_XOR;
+   static const int ITEM_ADD;
+   static const int ITEM_SUB;
+   static const int ITEM_GT;
+   static const int ITEM_LT;
+   static const int ITEM_LINKER;
+
 private slots:
 
    void saveScheme();
    void deleteScheme();
    void loadScheme();
-   void addBlock();
-   void addLinker();
+   void selectItem(int);
    void simulateAll();
    void simulateStep();
 
@@ -32,6 +43,8 @@ private:
    void createMenu();
    void createButtons();
    void createCanvas();
+
+   int selectedItem;
 
    QMenu *load;
    std::vector<QAction*> savedSchemes;

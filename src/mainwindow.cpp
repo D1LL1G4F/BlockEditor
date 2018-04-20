@@ -43,13 +43,29 @@ void MainWindow::simulateStep()
 
 }
 
-void MainWindow::exit()
-{
-
-}
-
 void MainWindow::createMenu()
 {
+    save = menuBar()->addAction(tr("&Save Scheme"));
+    save->setShortcuts(QKeySequence::Save);
+    save->setStatusTip(tr("saves current scheme for later usage"));
+    connect(save, &QAction::triggered, this, &MainWindow::saveScheme);
+
+    del = menuBar()->addAction(tr("&Delete Scheme"));
+    del->setShortcuts(QKeySequence::Delete);
+    del->setStatusTip(tr("resets current scheme to clear space"));
+    connect(del, &QAction::triggered, this, &MainWindow::deleteScheme);
+
+    load = menuBar()->addMenu(tr("Load Scheme"));
+
+    simAll = menuBar()->addAction(tr("&Simulate all"));
+    simAll->setShortcuts(QKeySequence::InsertParagraphSeparator);
+    simAll->setStatusTip(tr("executes simulation of whole scheme"));
+    connect(simAll, &QAction::triggered, this, &MainWindow::simulateAll);
+
+    simStep = menuBar()->addAction(tr("&Simulate step"));
+    simStep->setShortcuts(QKeySequence::MoveToNextChar);
+    simStep->setStatusTip(tr("performs single step of simulation"));
+    connect(simStep, &QAction::triggered, this, &MainWindow::simulateStep);
 
 }
 

@@ -25,7 +25,6 @@ private slots:
    void addLinker();
    void simulateAll();
    void simulateStep();
-   void exit();
 
 
 
@@ -34,7 +33,7 @@ private:
    void createButtons();
    void createCanvas();
 
-   QMenu *loadMenu;
+   QMenu *load;
    std::vector<QAction*> savedSchemes;
    QAction *save;
    QAction *del;

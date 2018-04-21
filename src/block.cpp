@@ -17,12 +17,12 @@ Block::Block(string type, int inPortsN, int outPortsN)
 
    // create input ports
    for (int i = 0; i < inPortsN; i++) {
-       inPorts.push_back(new Port(portType,this));
+       inPorts.push_back(Port(portType,this));
    }
 
     // create ouput ports
    for (int i = 0; i < outPortsN; i++) {
-       outPorts.push_back(new Port(portType,this));
+       outPorts.push_back(Port(portType,this));
    }
 }
 
@@ -34,8 +34,9 @@ void Block::calculate()
 Port* Block::getInPort(int index)
 {
     if (index < inPortsNumber && index >= 0) {
-        return inPorts[index];
+        return &inPorts[index];
     } else {
+        qDebug() << "port out of index in getInPort()\n";
         return nullptr;
     }
 }
@@ -43,8 +44,9 @@ Port* Block::getInPort(int index)
 Port* Block::getOutPort(int index)
 {
     if (index < outPortsNumber && index >= 0) {
-        return outPorts[index];
+        return &outPorts[index];
     } else {
+        qDebug() << "port out of index in getOutPort()\n";
         return nullptr;
     }
 }
@@ -54,12 +56,12 @@ void Block::setPort(int port_type, int port_index, double value)
     switch (port_type) {
     case PORT_OUT:
         if (port_index < outPortsNumber && port_index >= 0) {
-            outPorts[port_index]->set(value);
+            outPorts[port_index].set(value);
         }
         break;
     case PORT_IN:
         if (port_index < inPortsNumber && port_index >= 0) {
-            inPorts[port_index]->set(value);
+            inPorts[port_index].set(value);
         }
         break;
     default:
@@ -69,8 +71,8 @@ void Block::setPort(int port_type, int port_index, double value)
 
 bool Block::areInPortsSet()
 {
-    for(auto port : inPorts) {
-        if (!port->isSet()){
+    for (auto port : inPorts) {
+        if (!port.isSet()){
             return false;
         }
     }

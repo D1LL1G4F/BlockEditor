@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "port.h"
+#include <QDebug>
 
 using namespace std;
 
@@ -31,8 +32,8 @@ public:
 
 private:
     string BlockType;
-    vector<Port*> inPorts;
-    vector<Port*> outPorts;
+    vector<Port> inPorts;
+    vector<Port> outPorts;
 };
 
 #endif // BLOCK_H

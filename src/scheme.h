@@ -11,14 +11,15 @@ class Scheme
 public:
     Scheme();
 
-    void stepOne();
+    bool stepOne();
     void stepAll();
 
     void save(std::string path);
     void load(std::string path);
 
-    void addBlock(Block &block);
-    void removeBlock(Block &block);
+    void addBlock(const Block &block);
+
+    void clear();
 };
 
 #endif // SCHEME_H

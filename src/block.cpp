@@ -1,4 +1,5 @@
 #include "block.h"
+#include "mainwindow.h"
 #include <iostream>
 #include <string>
 
@@ -8,22 +9,52 @@ const int Block::PORT_OUT = 0;
 const int Block::PORT_IN = 1;
 
 
-Block::Block(string type, int inPortsN, int outPortsN)
+Block::Block(int type, double x, double y)
+    : x(x), y(y)
 {
-   BlockType = type;
-   inPortsNumber = inPortsN;
-   outPortsNumber = outPortsN;
-   string portType("AND"); // TODO
+   blockType = type;
+   inPortsNumber = 2;
+   outPortsNumber = 1;
+
+   string portTypeIn, portTypeOut;
+
+   switch (type) {
+   case MainWindow::ITEM_AND:
+   case MainWindow::ITEM_NAND:
+   case MainWindow::ITEM_OR:
+   case MainWindow::ITEM_XOR:
+       portTypeIn = "logical";
+       portTypeOut = "logical";
+       break;
+   case MainWindow::ITEM_ADD:
+   case MainWindow::ITEM_SUB:
+       portTypeIn = "decimal";
+       portTypeOut = "decimal";
+       break;
+   case MainWindow::ITEM_LT:
+   case MainWindow::ITEM_GT:
+       portTypeIn = "decimal";
+       portTypeOut = "logical";
+       break;
+   }
 
    // create input ports
-   for (int i = 0; i < inPortsN; i++) {
-       inPorts.push_back(Port(portType,this));
+   for (int i = 0; i < inPortsNumber; i++) {
+       inPorts.push_back(Port(portTypeIn,this));
    }
 
     // create ouput ports
-   for (int i = 0; i < outPortsN; i++) {
-       outPorts.push_back(Port(portType,this));
+   for (int i = 0; i < outPortsNumber; i++) {
+       outPorts.push_back(Port(portTypeOut,this));
    }
+}
+
+double Block::getX() {
+    return x;
+}
+
+double Block::getY() {
+    return y;
 }
 
 void Block::calculate()

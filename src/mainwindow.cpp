@@ -1,15 +1,5 @@
 #include "mainwindow.h"
 
-const int MainWindow::ITEM_AND = 0;
-const int MainWindow::ITEM_NAND = 1;
-const int MainWindow::ITEM_OR = 2;
-const int MainWindow::ITEM_XOR = 3;
-const int MainWindow::ITEM_ADD = 4;
-const int MainWindow::ITEM_SUB = 5;
-const int MainWindow::ITEM_GT = 6;
-const int MainWindow::ITEM_LT = 7;
-const int MainWindow::ITEM_LINKER = 8;
-
 
 MainWindow::MainWindow()
 {
@@ -44,7 +34,7 @@ void MainWindow::saveScheme()
 
 void MainWindow::deleteScheme()
 {
-    canvas->clear();
+    canvas->clearAll();
 
 }
 

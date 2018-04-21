@@ -6,6 +6,7 @@
 #include <QPen>
 #include <QBrush>
 #include "mainwindow.h"
+#include "scheme.h"
 
 class MainWindow;
 
@@ -14,6 +15,14 @@ class Canvas : public QGraphicsScene
 {
 public:
     Canvas(MainWindow *parent);
+
+    const static int offsetX = 260;
+    const static int offsetY = 50;
+
+    void clearAll() {
+        clear();
+        scheme.clear();
+    }
 
 private slots:
 
@@ -24,6 +33,7 @@ protected:
 
 private:
     MainWindow *parentWindow;
+    Scheme scheme;
 };
 
 #endif // CANVAS_H

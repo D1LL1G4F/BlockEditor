@@ -25,15 +25,15 @@ class MainWindow : public QMainWindow
 public:
    MainWindow();
 
-   static const int ITEM_AND;
-   static const int ITEM_NAND;
-   static const int ITEM_OR;
-   static const int ITEM_XOR;
-   static const int ITEM_ADD;
-   static const int ITEM_SUB;
-   static const int ITEM_GT;
-   static const int ITEM_LT;
-   static const int ITEM_LINKER;
+   static const int ITEM_AND = 0;
+   static const int ITEM_NAND = 1;
+   static const int ITEM_OR = 2;
+   static const int ITEM_XOR = 3;
+   static const int ITEM_ADD = 4;
+   static const int ITEM_SUB = 5;
+   static const int ITEM_GT = 6;
+   static const int ITEM_LT = 7;
+   static const int ITEM_LINKER = 8;
 
    int getSelectedItem();
 
@@ -77,6 +77,7 @@ private:
    QPushButton *buttonGT;
    QPushButton *buttonLT;
    QPushButton *buttonLinker;
+
 
 };
 

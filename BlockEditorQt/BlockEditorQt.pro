@@ -11,11 +11,15 @@ DISTFILES += \
 HEADERS += \
     ../src/block.h \
     ../src/port.h \
-    ../src/mainwindow.h
+    ../src/mainwindow.h \
+    ../src/scheme.h \
+    ../src/canvas.h
 
 SOURCES += \
     ../src/block.cpp \
     ../src/port.cpp \
     ../test.cpp \
     ../src/main.cpp \
-    ../src/mainwindow.cpp
+    ../src/mainwindow.cpp \
+    ../src/scheme.cpp \
+    ../src/canvas.cpp

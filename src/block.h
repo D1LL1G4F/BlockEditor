@@ -22,7 +22,7 @@ public:
     int inPortsNumber;
     int outPortsNumber;
 
-    Block(string type, int inPortsN, int outPortsN);
+    Block(int type, double x, double y);
 
     void calculate();
     Port* getInPort(int index);
@@ -30,10 +30,15 @@ public:
     void setPort(int port_type, int port_index, double value);
     bool areInPortsSet();
 
+    double getX();
+    double getY();
+
 private:
-    string BlockType;
+    string blockType;
     vector<Port> inPorts;
     vector<Port> outPorts;
+
+    double x, y;
 };
 
 #endif // BLOCK_H

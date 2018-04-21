@@ -13,14 +13,23 @@ const int MainWindow::ITEM_LINKER = 8;
 
 MainWindow::MainWindow()
 {
+    central = new QWidget;
     createButtons();
     createMenu();
     createCanvas();
     // set default selected item as ITEM_AND
     selectItem(ITEM_AND);
 
-    canvas = new Canvas(this);
-    canvas->setSceneRect(0, 0, 1000, 1000);
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->addWidget(leftBar);
+    layout->addWidget(scene);
+
+    central->setLayout(layout);
+    setCentralWidget(central);
+
+
+
+
 }
 
 int MainWindow::getSelectedItem()
@@ -35,6 +44,7 @@ void MainWindow::saveScheme()
 
 void MainWindow::deleteScheme()
 {
+    canvas->clear();
 
 }
 
@@ -171,13 +181,22 @@ void MainWindow::createButtons()
     layout->addWidget(buttonLT);
     layout->addWidget(buttonLinker);
 
-    QWidget *central = new QWidget;
-    central->setLayout(layout);
-    central->setMaximumWidth(150);
-    setCentralWidget(central);
+    leftBar = new QWidget;
+    leftBar->setLayout(layout);
+    leftBar->setMaximumWidth(150);
 }
 
 void MainWindow::createCanvas()
 {
+    canvas = new Canvas(this);
+    canvas->setSceneRect(0, 0, 1000, 1000);
+
+    scene = new QWidget;
+
+    view = new QGraphicsView(canvas,scene);
+    view->show();
+
+
+
 
 }

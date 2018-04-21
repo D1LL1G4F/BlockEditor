@@ -8,9 +8,14 @@
 #include <QMenu>
 #include <QSignalMapper>
 #include <QAction>
+#include <QWidget>
 #include <vector>
 #include <QDebug>
 #include "canvas.h"
+#include <QGraphicsScene>
+#include <QGraphicsView>
+
+class Canvas;
 
 
 class MainWindow : public QMainWindow
@@ -49,6 +54,10 @@ private:
    void createCanvas();
 
    int selectedItem;
+
+   QWidget *central;
+   QWidget *leftBar;
+   QWidget *scene;
 
    Canvas *canvas;
 

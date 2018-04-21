@@ -19,7 +19,7 @@ public:
     double value;
 
     Block *blockPtr;
-
+    Port *pairedPort;
 
     bool isSet();
     string getType();

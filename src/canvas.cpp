@@ -11,7 +11,7 @@ void Canvas::Additem(qreal x, qreal y)
 {
     QPen pen = QPen();
     QBrush brush = QBrush();
-    this->addRect(x-300,y-80, 75, 125, pen , brush);
+    this->addRect(x-260,y-50, 75, 125, pen , brush);
 }
 
 void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)

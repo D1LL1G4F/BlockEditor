@@ -11,7 +11,8 @@ void Canvas::Additem(qreal x, qreal y)
     QPen pen = QPen();
     QBrush brush = QBrush();
     this->addRect(x,y, 75, 125, pen , brush);
-    scheme.addBlock(Block(parentWindow->getSelectedItem(), x, y));
+    Block &b = scheme.addBlock(Block(parentWindow->getSelectedItem(), x, y));
+
 }
 
 void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)

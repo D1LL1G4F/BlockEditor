@@ -5,8 +5,10 @@ Scheme::Scheme()
 
 }
 
-void Scheme::addBlock(const Block &block) {
+Block& Scheme::addBlock(const Block &block) {
     blocks.push_back(block);
+
+    return blocks.back();
 }
 
 void Scheme::clear() {

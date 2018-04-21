@@ -10,6 +10,8 @@
 #include <QAction>
 #include <vector>
 #include <QDebug>
+#include "canvas.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -48,6 +50,9 @@ private:
 
    int selectedItem;
 
+   Canvas *canvas;
+
+   QGraphicsView *view;
    QMenu *load;
    std::vector<QAction*> savedSchemes;
    QAction *save;
@@ -63,7 +68,6 @@ private:
    QPushButton *buttonGT;
    QPushButton *buttonLT;
    QPushButton *buttonLinker;
-
 
 };
 

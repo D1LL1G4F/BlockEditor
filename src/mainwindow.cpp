@@ -18,6 +18,9 @@ MainWindow::MainWindow()
     createCanvas();
     // set default selected item as ITEM_AND
     selectItem(ITEM_AND);
+
+    canvas = new Canvas(this);
+    canvas->setSceneRect(0, 0, 1000, 1000);
 }
 
 int MainWindow::getSelectedItem()

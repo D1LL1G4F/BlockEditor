@@ -2,7 +2,9 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
 #include <QInputDialog>
+#include <cmath>
 #include "mainwindow.h"
+#include "linker.h"
 
 
 Canvas::Canvas(MainWindow *parent) : QGraphicsScene(parent)
@@ -94,7 +96,8 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         Port *sourcePort = getPortPtrFromItem(sourceItem);
         double sourceX = sourcePort->getX();
         double sourceY = sourcePort->getY();
-        this->addLine(sourceX+8,sourceY+8, targetX+8, targetY+8,pen);
+        Linker *line = new Linker(sourceX+8,sourceY+8, targetX+8, targetY+8);
+        addItem(line);
         changeCircleColor(sourceItem,QColor(0,0,255,255));
         changeCircleColor(item,QColor(0,0,255,255));
     }
@@ -104,7 +107,7 @@ void Canvas::createBlock(double x, double y)
 {
     for (int i = 0; i < scheme.getLastBlockIndex()+1 ; i++) { // check overlaping
         Block *blockPtr = scheme.getBlock(i);
-        if (abs(blockPtr->getX() - x) < 75 &&  abs(blockPtr->getY() - y) < 125)
+        if (fabs(blockPtr->getX() - x) < 75 &&  fabs(blockPtr->getY() - y) < 125)
             return;
     }
     QPen pen = QPen();

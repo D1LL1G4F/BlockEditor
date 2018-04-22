@@ -16,11 +16,6 @@ MainWindow::MainWindow()
 
     central->setLayout(layout);
     setCentralWidget(central);
-
-
-
-
-
 }
 
 int MainWindow::getSelectedItem()

@@ -75,9 +75,6 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         lineSourceValid = false;
         double targetX;
         double targetY;
-        QPen pen = QPen();
-        pen.setWidth(6);
-        pen.setColor(QColor(0,0,255,255));
         QGraphicsItem *item = this->itemAt(mouseEvent->scenePos().x(),mouseEvent->scenePos().y(),QTransform());
         if (item->data(0) == "INPUT" || item->data(0) == "OUTPUT") {
             int portIdx = item->data(1).toInt();

@@ -1,6 +1,7 @@
 #include "canvas.h"
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
+#include <QInputDialog>
 #include "mainwindow.h"
 
 
@@ -23,7 +24,25 @@ void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (mouseEvent->button() != Qt::LeftButton) {
         QGraphicsItem *item = this->itemAt(mouseEvent->scenePos().x(),mouseEvent->scenePos().y(),QTransform());
         if (item->data(0) == "INPUT") {
-            changeCircleColor(item,QColor(0,255,0,255));
+            bool ok;
+            Port *port = getPortPtrFromItem(item);
+            int minVal;
+            int maxVal;
+            QString label;
+            if (port->getType() == "logical") {
+                minVal = 0;
+                maxVal = 1;
+                label = "logical port value (0/1):";
+            } else {
+                minVal = -2147483647;
+                maxVal = 2147483647;
+                label = "decimal port value (-2147483647 - 21474836470:)";
+            }
+            double portVal = (double)QInputDialog::getInt(NULL,QString("Enter port value"), label, 0, minVal, maxVal, 1, &ok, Qt::WindowFlags());
+            if (ok) {
+                changeCircleColor(item,QColor(0,255,0,255));
+                port->set(portVal);
+            }
         }
         return;
     } else {

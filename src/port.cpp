@@ -1,8 +1,10 @@
 #include "port.h"
 
-Port::Port(string portType, Block *parentPtr)
+Port::Port(string portType, Block *parentPtr, double x, double y)
 {
     name = portType;
+    xCoord = x;
+    yCoord = y;
     blockPtr = parentPtr;
     status = false;
 }
@@ -15,6 +17,16 @@ string Port::getType()
 double Port::getValue()
 {
     return value;
+}
+
+double Port::getX()
+{
+    return xCoord;
+}
+
+double Port::getY()
+{
+    return yCoord;
 }
 
 bool Port::isSet()

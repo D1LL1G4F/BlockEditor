@@ -7,6 +7,7 @@
 #include <QBrush>
 #include "mainwindow.h"
 #include "scheme.h"
+#include "port.h"
 
 class MainWindow;
 
@@ -30,10 +31,17 @@ private slots:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
 
 private:
+    void createBlock(double x, double y);
+    QString getActualBlockName();
+    void changeCircleColor(QGraphicsItem *item, QColor color);
+    Port *getPortPtrFromItem(QGraphicsItem *item);
     MainWindow *parentWindow;
     Scheme scheme;
+    QGraphicsItem *sourceItem;
+    bool lineSourceValid;
 };
 
 #endif // CANVAS_H

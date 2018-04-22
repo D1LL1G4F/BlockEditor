@@ -13,6 +13,8 @@ public:
 
     bool stepOne();
     void stepAll();
+    int getLastBlockIndex();
+    Block* getBlock(int index);
 
     void save(std::string path);
     void load(std::string path);

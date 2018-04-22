@@ -22,7 +22,7 @@ public:
     int inPortsNumber;
     int outPortsNumber;
 
-    Block(int type, double x, double y);
+    Block(int type, double x, double y, double width, double height);
 
     void calculate();
     Port* getInPort(int index);

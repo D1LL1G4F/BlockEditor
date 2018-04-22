@@ -20,6 +20,7 @@ MainWindow::MainWindow()
 
 
 
+
 }
 
 int MainWindow::getSelectedItem()
@@ -101,9 +102,9 @@ void MainWindow::simulateStep()
 
 void MainWindow::createMenu()
 {
-    save = menuBar()->addAction(tr("&Save Scheme"));
+    save = menuBar()->addAction("&Save Scheme");
     save->setShortcuts(QKeySequence::Save);
-    save->setStatusTip(tr("saves current scheme for later usage"));
+    save->setStatusTip("saves current scheme for later usage");
     connect(save, &QAction::triggered, this, &MainWindow::saveScheme);
 
     del = menuBar()->addAction(tr("&Delete Scheme"));

@@ -19,6 +19,16 @@ void Scheme::stepAll() {
     while (stepOne());
 }
 
+int Scheme::getLastBlockIndex()
+{
+    return blocks.size() - 1;
+}
+
+Block* Scheme::getBlock(int index)
+{
+    return &blocks.at(index);
+}
+
 bool Scheme::stepOne() {
     return false;
 }

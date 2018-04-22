@@ -13,7 +13,7 @@ class Block;
 class Port
 {
 public:
-    Port(string portType, Block *parentPtr);
+    Port(string portType, Block *parentPtr, double x, double y);
 
     string name;
     double value;
@@ -24,9 +24,13 @@ public:
     bool isSet();
     string getType();
     double getValue();
+    double getX();
+    double getY();
     void set(double val);
 private:
     bool status;
+    double xCoord;
+    double yCoord;
 };
 
 #endif // PORT_H

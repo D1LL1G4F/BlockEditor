@@ -9,7 +9,7 @@ const int Block::PORT_OUT = 0;
 const int Block::PORT_IN = 1;
 
 
-Block::Block(int type, double x, double y)
+Block::Block(int type, double x, double y, double width, double height)
     : x(x), y(y)
 {
    blockType = type;
@@ -36,16 +36,18 @@ Block::Block(int type, double x, double y)
        portTypeIn = "decimal";
        portTypeOut = "logical";
        break;
+   default:
+       break;
    }
 
    // create input ports
    for (int i = 0; i < inPortsNumber; i++) {
-       inPorts.push_back(Port(portTypeIn,this));
+       inPorts.push_back(Port(portTypeIn,this,x+8,y + (height/inPortsNumber)*(i+0.5)));
    }
 
     // create ouput ports
    for (int i = 0; i < outPortsNumber; i++) {
-       outPorts.push_back(Port(portTypeOut,this));
+       outPorts.push_back(Port(portTypeOut,this,x+width-20,y + (height/outPortsNumber)*(i+0.5)));
    }
 }
 

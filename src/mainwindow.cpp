@@ -118,7 +118,6 @@ void MainWindow::createMenu()
     simStep->setShortcuts(QKeySequence::MoveToNextChar);
     simStep->setStatusTip(tr("performs single step of simulation"));
     connect(simStep, &QAction::triggered, this, &MainWindow::simulateStep);
-
 }
 
 void MainWindow::createButtons()
@@ -181,8 +180,4 @@ void MainWindow::createCanvas()
 
     view = new QGraphicsView(canvas,scene);
     view->show();
-
-
-
-
 }

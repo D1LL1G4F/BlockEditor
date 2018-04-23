@@ -77,7 +77,6 @@ Port* Block::getInPort(int index)
 Port* Block::getOutPort(int index)
 {
     if (index < outPortsNumber && index >= 0) {
-        qDebug() << outPorts[index].blockPtr->inPortsNumber;
         return &outPorts[index];
     } else {
         qDebug() << "port out of index in getOutPort()\n";

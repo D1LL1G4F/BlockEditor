@@ -86,11 +86,12 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             int portIdx = item->data(1).toInt();
             int blckIdx = item->data(2).toInt();
             blockPtr = scheme.getBlock(blckIdx);
-            destPort = blockPtr->getInPort(portIdx);
             if (item->data(0) == "INPUT") {
+                destPort = blockPtr->getInPort(portIdx);
                 targetX = blockPtr->getInPort(portIdx)->getX();
                 targetY = blockPtr->getInPort(portIdx)->getY();
             } else {
+                destPort = blockPtr->getOutPort(portIdx);
                 targetX = blockPtr->getOutPort(portIdx)->getX();
                 targetY = blockPtr->getOutPort(portIdx)->getY();
             }
@@ -100,10 +101,19 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         Port *sourcePort = getPortPtrFromItem(sourceItem);
         double sourceX = sourcePort->getX();
         double sourceY = sourcePort->getY();
-        Linker *line = new Linker(sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
-        addItem(line);
-        changeCircleColor(sourceItem,QColor(0,0,255,255));
-        changeCircleColor(item,QColor(0,0,255,255));
+        Linker *line ;
+        bool err = false;
+        try {
+            line = new Linker(sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
+        }
+        catch (int a){
+            err = true;
+        }
+        if (!err) {
+            addItem(line);
+            changeCircleColor(sourceItem,QColor(0,0,255,255));
+            changeCircleColor(item,QColor(0,0,255,255));
+        }
     }
 }
 

@@ -13,6 +13,10 @@ protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent*) Q_DECL_OVERRIDE;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent*) Q_DECL_OVERRIDE;
 
+private:
+    Port *surcePort;
+    Port *destPort;
+
 };
 
 #endif // LINKER_H

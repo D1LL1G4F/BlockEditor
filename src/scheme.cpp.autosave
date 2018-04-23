@@ -26,7 +26,6 @@ int Scheme::getLastBlockIndex()
 
 Block* Scheme::getBlock(int index)
 {
-    qDebug() << blocks[index].inPortsNumber;
     return &blocks[index];
 }
 

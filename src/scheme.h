@@ -6,7 +6,8 @@
 
 class Scheme
 {
-    std::vector<Block> blocks;
+private:
+    std::vector<Block*> blocks;
 
 public:
     Scheme();
@@ -19,7 +20,7 @@ public:
     void save(std::string path);
     void load(std::string path);
 
-    Block* addBlock(const Block &block);
+    Block* addBlock(Block *block);
 
     void clear();
 };

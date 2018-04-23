@@ -148,7 +148,7 @@ void Canvas::createBlock(double x, double y)
     txt->setPlainText(getActualBlockName());
 
     this->addItem(txt);
-    Block *b = scheme.addBlock(Block(parentWindow->getSelectedItem(), x, y, rWidth, rHeight));
+    Block *b = scheme.addBlock(new Block(parentWindow->getSelectedItem(), x, y, rWidth, rHeight));
     pen.setColor(QColor(255,0,0,255));
     for (int i=0; i < b->inPortsNumber; i++) { // draw in ports
         QGraphicsEllipseItem *circle = this->addEllipse(b->getInPort(i)->getX(),b->getInPort(i)->getY(),17,17,pen,brush);

@@ -7,14 +7,22 @@ Linker::Linker(Port *source, Port *dest, qreal x1, qreal y1, qreal x2, qreal y2,
     if ((source->isOut() == dest->isOut()) || source->blockPtr == dest->blockPtr || source->getType() != dest->getType()) {
         throw 1;
     }
+    if (source->isOut()) {
+        srcPort = source;
+        destPort = dest;
+    } else {
+        srcPort = dest;
+        destPort = source;
+    }
     QPen pen = QPen();
     pen.setWidth(6);
     pen.setColor(QColor(0,0,255,255));
     setPen(pen);
     setAcceptHoverEvents(true);
+    dialogTxt = nullptr;
 }
 
-void Linker::hoverEnterEvent(QGraphicsSceneHoverEvent *)
+void Linker::hoverEnterEvent(QGraphicsSceneHoverEvent *evnt)
 {
     QPen pen = QPen();
     pen.setWidth(6);

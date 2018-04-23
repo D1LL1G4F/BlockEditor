@@ -8,6 +8,7 @@ Port::Port(string portType, Block *parentPtr, double x, double y)
     blockPtr = parentPtr;
     pairedPort = nullptr;
     status = false;
+    value = 0;
 }
 
 string Port::getType()

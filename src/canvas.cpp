@@ -80,10 +80,13 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         double targetX;
         double targetY;
         QGraphicsItem *item = this->itemAt(mouseEvent->scenePos().x(),mouseEvent->scenePos().y(),QTransform());
+        Block *blockPtr;
+        Port *destPort;
         if (item->data(0) == "INPUT" || item->data(0) == "OUTPUT") {
             int portIdx = item->data(1).toInt();
             int blckIdx = item->data(2).toInt();
-            Block *blockPtr = scheme.getBlock(blckIdx);
+            blockPtr = scheme.getBlock(blckIdx);
+            destPort = blockPtr->getInPort(portIdx);
             if (item->data(0) == "INPUT") {
                 targetX = blockPtr->getInPort(portIdx)->getX();
                 targetY = blockPtr->getInPort(portIdx)->getY();
@@ -97,7 +100,7 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         Port *sourcePort = getPortPtrFromItem(sourceItem);
         double sourceX = sourcePort->getX();
         double sourceY = sourcePort->getY();
-        Linker *line = new Linker(sourceX+8,sourceY+8, targetX+8, targetY+8);
+        Linker *line = new Linker(sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
         addItem(line);
         changeCircleColor(sourceItem,QColor(0,0,255,255));
         changeCircleColor(item,QColor(0,0,255,255));

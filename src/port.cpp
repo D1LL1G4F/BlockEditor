@@ -47,3 +47,21 @@ void Port::unset()
     value = 0;
     pairedPort = nullptr;
 }
+
+bool Port::isIn()
+{
+    for (int i = 0; i < blockPtr->inPortsNumber; i++) {
+        if (blockPtr->getInPort(i)->getX() == xCoord && blockPtr->getInPort(i)->getY() == yCoord)
+            return true;
+    }
+    return false;
+}
+
+bool Port::isOut()
+{
+    for (int i = 0; i < blockPtr->outPortsNumber; i++) {
+        if (blockPtr->getOutPort(i)->getX() == xCoord && blockPtr->getOutPort(i)->getY() == yCoord)
+            return true;
+    }
+    return false;
+}

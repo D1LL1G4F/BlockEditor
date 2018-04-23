@@ -27,6 +27,9 @@ public:
     double getX();
     double getY();
     void set(double val);
+    void unset();
+    bool isIn();
+    bool isOut();
 private:
     bool status;
     double xCoord;

@@ -18,7 +18,6 @@ void Canvas::Additem(qreal x, qreal y)
     if (parentWindow->getSelectedItem() != MainWindow::ITEM_LINKER) {
         createBlock(x,y);
     }
-
 }
 
 void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)

@@ -6,6 +6,7 @@ Port::Port(string portType, Block *parentPtr, double x, double y)
     xCoord = x;
     yCoord = y;
     blockPtr = parentPtr;
+    pairedPort = nullptr;
     status = false;
 }
 
@@ -38,4 +39,11 @@ void Port::set(double val)
 {
     value = val;
     status = true;
+}
+
+void Port::unset()
+{
+    status = false;
+    value = 0;
+    pairedPort = nullptr;
 }

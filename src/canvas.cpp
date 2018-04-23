@@ -148,17 +148,17 @@ void Canvas::createBlock(double x, double y)
     txt->setPlainText(getActualBlockName());
 
     this->addItem(txt);
-    Block &b = scheme.addBlock(Block(parentWindow->getSelectedItem(), x, y, rWidth, rHeight));
+    Block *b = scheme.addBlock(Block(parentWindow->getSelectedItem(), x, y, rWidth, rHeight));
     pen.setColor(QColor(255,0,0,255));
-    for (int i=0; i < b.inPortsNumber; i++) { // draw in ports
-        QGraphicsEllipseItem *circle = this->addEllipse(b.getInPort(i)->getX(),b.getInPort(i)->getY(),17,17,pen,brush);
+    for (int i=0; i < b->inPortsNumber; i++) { // draw in ports
+        QGraphicsEllipseItem *circle = this->addEllipse(b->getInPort(i)->getX(),b->getInPort(i)->getY(),17,17,pen,brush);
         circle->setData(0,QVariant("INPUT"));
         circle->setData(1,QVariant(i));
         circle->setData(2,QVariant(scheme.getLastBlockIndex()));
     }
     pen.setColor(QColor(0,0,0,255));
-    for (int i=0; i < b.outPortsNumber; i++) { // draw out ports
-        QGraphicsEllipseItem *circle = this->addEllipse(b.getOutPort(i)->getX(),b.getOutPort(i)->getY(),17,17,pen,brush);
+    for (int i=0; i < b->outPortsNumber; i++) { // draw out ports
+        QGraphicsEllipseItem *circle = this->addEllipse(b->getOutPort(i)->getX(),b->getOutPort(i)->getY(),17,17,pen,brush);
         circle->setData(0,QVariant("OUTPUT"));
         circle->setData(1,QVariant(i));
         circle->setData(2,QVariant(scheme.getLastBlockIndex()));

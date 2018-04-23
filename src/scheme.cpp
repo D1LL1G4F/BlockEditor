@@ -5,10 +5,10 @@ Scheme::Scheme()
 
 }
 
-Block& Scheme::addBlock(const Block &block) {
+Block* Scheme::addBlock(const Block &block) {
     blocks.push_back(block);
 
-    return blocks.back();
+    return &blocks.back();
 }
 
 void Scheme::clear() {
@@ -26,7 +26,6 @@ int Scheme::getLastBlockIndex()
 
 Block* Scheme::getBlock(int index)
 {
-    qDebug() << blocks[index].inPortsNumber;
     return &blocks[index];
 }
 

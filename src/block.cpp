@@ -45,6 +45,7 @@ Block::Block(int type, double x, double y, double width, double height)
        inPorts.push_back(Port(portTypeIn,this,x+8,y + (height/inPortsNumber)*(i+0.5)));
    }
 
+
     // create ouput ports
    for (int i = 0; i < outPortsNumber; i++) {
        outPorts.push_back(Port(portTypeOut,this,x+width-20,y + (height/outPortsNumber)*(i+0.5)));
@@ -77,7 +78,6 @@ Port* Block::getInPort(int index)
 Port* Block::getOutPort(int index)
 {
     if (index < outPortsNumber && index >= 0) {
-        qDebug() << outPorts[index].blockPtr->inPortsNumber;
         return &outPorts[index];
     } else {
         qDebug() << "port out of index in getOutPort()\n";

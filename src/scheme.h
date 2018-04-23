@@ -19,7 +19,7 @@ public:
     void save(std::string path);
     void load(std::string path);
 
-    Block& addBlock(const Block &block);
+    Block* addBlock(const Block &block);
 
     void clear();
 };

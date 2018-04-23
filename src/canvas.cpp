@@ -53,6 +53,10 @@ void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             if (item->data(0) == "INPUT" || item->data(0) == "OUTPUT") {
                 lineSourceValid = true;
                 sourceItem = item;
+                QPen pen = QPen();
+                pen.setWidth(6);
+                pen.setColor(QColor(0,0,255,255));
+                tmpLine = addLine(getPortPtrFromItem(item)->getX()+8,getPortPtrFromItem(item)->getY()+8,mouseEvent->scenePos().x(),mouseEvent->scenePos().y(),pen);
 
             } else {
                 lineSourceValid = false;
@@ -72,6 +76,7 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if (!lineSourceValid) {
             return;
         }
+        delete tmpLine;
         lineSourceValid = false;
         double targetX;
         double targetY;
@@ -97,6 +102,19 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         addItem(line);
         changeCircleColor(sourceItem,QColor(0,0,255,255));
         changeCircleColor(item,QColor(0,0,255,255));
+    }
+}
+
+void Canvas::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    if (parentWindow->getSelectedItem() == MainWindow::ITEM_LINKER && lineSourceValid) {
+        delete tmpLine;
+        QPen pen = QPen();
+        pen.setWidth(6);
+        pen.setColor(QColor(0,0,255,255));
+        tmpLine = addLine(getPortPtrFromItem(sourceItem)->getX()+8,getPortPtrFromItem(sourceItem)->getY()+8,mouseEvent->scenePos().x(),mouseEvent->scenePos().y(),pen);
+    } else {
+        QGraphicsScene::mouseMoveEvent(mouseEvent);
     }
 }
 

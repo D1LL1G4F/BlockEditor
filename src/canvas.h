@@ -32,6 +32,7 @@ private slots:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) Q_DECL_OVERRIDE;
 
 private:
     void createBlock(double x, double y);
@@ -42,6 +43,7 @@ private:
     Scheme scheme;
     QGraphicsItem *sourceItem;
     bool lineSourceValid;
+    QGraphicsLineItem *tmpLine;
 };
 
 #endif // CANVAS_H

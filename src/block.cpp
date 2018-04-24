@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -65,16 +66,27 @@ void Block::calculate()
     switch (blockType) {
     case MainWindow::ITEM_AND:
         outPorts[0].set(inPorts[0].getValue() && inPorts[1].getValue());
+        break;
     case MainWindow::ITEM_NAND:
         outPorts[0].set(!(inPorts[0].getValue() && inPorts[1].getValue()));
+        break;
     case MainWindow::ITEM_OR:
+        outPorts[0].set(inPorts[0].getValue() || inPorts[1].getValue());
+        break;
     case MainWindow::ITEM_XOR:
+        outPorts[0].set(fabs(inPorts[0].getValue() - inPorts[1].getValue()) > 0.5);
         break;
     case MainWindow::ITEM_ADD:
+        outPorts[0].set(inPorts[0].getValue() + inPorts[1].getValue());
+        break;
     case MainWindow::ITEM_SUB:
+        outPorts[0].set(inPorts[0].getValue() - inPorts[1].getValue());
         break;
     case MainWindow::ITEM_LT:
+        outPorts[0].set(inPorts[0].getValue() < inPorts[1].getValue());
+        break;
     case MainWindow::ITEM_GT:
+        outPorts[0].set(inPorts[0].getValue() < inPorts[1].getValue());
         break;
     default:
         break;

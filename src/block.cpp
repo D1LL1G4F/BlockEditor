@@ -91,6 +91,12 @@ void Block::calculate()
     default:
         break;
     }
+
+    for (Port port : outPorts) {
+        if (port.pairedPort) {
+            port.pairedPort->set(port.getValue());
+        }
+    }
 }
 
 Port* Block::getInPort(int index)

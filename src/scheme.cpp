@@ -64,7 +64,16 @@ std::vector<Block *> Scheme::getReadyBlocks()
     std::vector<Block *> readyBlocks;
     for (Block* block : blocks) {
         if (block->areInPortsSet()) {
-            readyBlocks.push_back(block);
+            bool calculated = false;
+            for (int aCalc : alreadyCalculated) {
+                if (getIdxByBlock(block) == aCalc) {
+                    calculated = true;
+                }
+            }
+            if (!calculated) {
+                readyBlocks.push_back(block);
+                alreadyCalculated.push_back(getIdxByBlock(block));
+            }
         }
     }
     return readyBlocks;

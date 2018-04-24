@@ -62,7 +62,23 @@ double Block::getY() {
 
 void Block::calculate()
 {
-    // TODO
+    switch (blockType) {
+    case MainWindow::ITEM_AND:
+        outPorts[0].set(inPorts[0].getValue() && inPorts[1].getValue());
+    case MainWindow::ITEM_NAND:
+        outPorts[0].set(!(inPorts[0].getValue() && inPorts[1].getValue()));
+    case MainWindow::ITEM_OR:
+    case MainWindow::ITEM_XOR:
+        break;
+    case MainWindow::ITEM_ADD:
+    case MainWindow::ITEM_SUB:
+        break;
+    case MainWindow::ITEM_LT:
+    case MainWindow::ITEM_GT:
+        break;
+    default:
+        break;
+    }
 }
 
 Port* Block::getInPort(int index)

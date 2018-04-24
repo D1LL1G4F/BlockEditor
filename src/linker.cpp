@@ -15,6 +15,7 @@ Linker::Linker(Port *source, Port *dest, qreal x1, qreal y1, qreal x2, qreal y2,
         destPort = source;
     }
     source->pairedPort = dest;
+    dest->pairedPort = source;
     QPen pen = QPen();
     pen.setWidth(6);
     pen.setColor(QColor(0,0,255,255));

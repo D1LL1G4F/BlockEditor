@@ -12,8 +12,7 @@ public:
     Scheme();
 
     bool isSchemeLooped();
-    bool stepOne();
-    void stepAll();
+    std::vector<int> simulateStep();
     int getLastBlockIndex();
     Block* getBlock(int index);
 
@@ -26,6 +25,11 @@ public:
 
 private:
     bool isLooped(Block *block, int maxDepth, int currentDepth);
+    std::vector<Block *> getReadyBlocks();
+    bool isSchemeComplete();
+    int getIdxByBlock(Block *blockPtr);
+    std::vector<Block*> recentlyCalculated;
+    std::vector<Block*> calculated;
     std::vector<Block*> blocks;
 };
 

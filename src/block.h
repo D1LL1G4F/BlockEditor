@@ -34,7 +34,7 @@ public:
     double getY();
 
 private:
-    string blockType;
+    int blockType;
     vector<Port> inPorts;
     vector<Port> outPorts;
 

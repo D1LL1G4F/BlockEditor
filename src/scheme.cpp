@@ -27,6 +27,7 @@ std::vector<int> Scheme::simulateStep()
     toBeCalculated = getReadyBlocks();
     for (Block *block : toBeCalculated) {
         block->calculate();
+        qDebug() << getIdxByBlock(block);
         calculatedIndexes.push_back(getIdxByBlock(block));
     }
     return calculatedIndexes;

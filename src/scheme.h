@@ -29,7 +29,7 @@ private:
     bool isSchemeComplete();
     int getIdxByBlock(Block *blockPtr);
     std::vector<Block*> recentlyCalculated;
-    std::vector<Block*> calculated;
+    std::vector<Block*> uncalculated;
     std::vector<Block*> blocks;
 };
 

@@ -27,6 +27,7 @@ public:
     void calculate();
     Port* getInPort(int index);
     Port* getOutPort(int index);
+    int getType();
     void setPort(int port_type, int port_index, double value);
     bool areInPortsSet();
 

@@ -26,6 +26,7 @@ public:
         scheme.clear();
     }
     Scheme* getScheme();
+    void changeRectColor(int idx, QColor color);
 
 private slots:
 
@@ -38,7 +39,7 @@ protected:
 
 private:
     void createBlock(double x, double y);
-    QString getActualBlockName();
+    QString getActualBlockName(int type);
     void changeCircleColor(QGraphicsItem *item, QColor color);
     Port *getPortPtrFromItem(QGraphicsItem *item);
     MainWindow *parentWindow;
@@ -47,6 +48,7 @@ private:
     std::vector<QGraphicsItem*> blockItems;
     bool lineSourceValid;
     QGraphicsLineItem *tmpLine;
+
 
 };
 

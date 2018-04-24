@@ -151,7 +151,7 @@ void Canvas::createBlock(double x, double y)
     blockItem = this->addRect(x,y, rWidth, rHeight, pen , brush);
     QGraphicsTextItem * txt = new QGraphicsTextItem;
     txt->setPos(x+20,y+3);
-    txt->setPlainText(getActualBlockName());
+    txt->setPlainText(getActualBlockName(parentWindow->getSelectedItem()));
 
     this->addItem(txt);
     Block *b = scheme.addBlock(new Block(parentWindow->getSelectedItem(), x, y, rWidth, rHeight));
@@ -181,9 +181,9 @@ void Canvas::createBlock(double x, double y)
     }
 }
 
-QString Canvas::getActualBlockName()
+QString Canvas::getActualBlockName(int type)
 {
-    switch (parentWindow->getSelectedItem()) {
+    switch (type) {
     case MainWindow::ITEM_AND:
         return "AND";
     case MainWindow::ITEM_NAND:
@@ -239,4 +239,19 @@ Port *Canvas::getPortPtrFromItem(QGraphicsItem *item)
     } else {
         return blockPtr->getOutPort(portIdx);
     }
+}
+
+void Canvas::changeRectColor(int idx, QColor color)
+{
+    QGraphicsItem *blckItem = blockItems.at(idx);
+    Block *block = scheme.getBlock(idx);
+    delete blckItem;
+    QPen pen = QPen();
+    pen.setWidth(4);
+    pen.setColor(color);
+    QBrush brush = QBrush();
+    double rHeight = 125;
+    double rWidth = 75;
+    blckItem = this->addRect(block->getX(),block->getY(), rWidth, rHeight, pen , brush);
+    blockItems.at(idx) = blckItem;
 }

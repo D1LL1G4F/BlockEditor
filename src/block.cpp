@@ -113,6 +113,11 @@ Port* Block::getOutPort(int index)
     }
 }
 
+int Block::getType()
+{
+    return blockType;
+}
+
 void Block::setPort(int port_type, int port_index, double value)
 {
     switch (port_type) {

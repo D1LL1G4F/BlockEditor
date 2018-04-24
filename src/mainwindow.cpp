@@ -98,6 +98,16 @@ void MainWindow::simulateStep()
         qDebug() << "loop";
         QMessageBox::warning(this, tr("BlockEditor WARNING"), tr("Loops detected in scheme"), QMessageBox::Cancel);
     }
+    std::vector<int> blocks;
+    try {
+        blocks = canvas->getScheme()->simulateStep();
+        for (int block : blocks) {
+            canvas->changeRectColor(block,QColor(255,0,0,255));
+        }
+    }
+    catch (char const *error) {
+        QMessageBox::warning(this, tr("BlockEditor WARNING"), tr(error), QMessageBox::Cancel);
+    }
 }
 
 void MainWindow::createMenu()

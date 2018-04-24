@@ -96,7 +96,7 @@ void MainWindow::simulateStep()
 {
     if (canvas->getScheme()->isSchemeLooped()) {
         qDebug() << "loop";
-        QMessageBox(QMessageBox::Warning, QString("WARNING"), QString("Loop in scheme is detected!"), QMessageBox::Ok, 0, Qt::MSWindowsFixedSizeDialogHint);
+        QMessageBox::warning(this, tr("BlockEditor WARNING"), tr("Loops detected in scheme"), QMessageBox::Cancel);
     }
 }
 

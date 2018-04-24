@@ -5,6 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPen>
 #include <QBrush>
+#include <vector>
 #include "mainwindow.h"
 #include "scheme.h"
 #include "port.h"
@@ -24,6 +25,7 @@ public:
         clear();
         scheme.clear();
     }
+    Scheme* getScheme();
 
 private slots:
 
@@ -42,8 +44,10 @@ private:
     MainWindow *parentWindow;
     Scheme scheme;
     QGraphicsItem *sourceItem;
+    std::vector<QGraphicsItem*> blockItems;
     bool lineSourceValid;
     QGraphicsLineItem *tmpLine;
+
 };
 
 #endif // CANVAS_H

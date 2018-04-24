@@ -13,6 +13,11 @@ Canvas::Canvas(MainWindow *parent) : QGraphicsScene(parent)
     lineSourceValid = false;
 }
 
+Scheme *Canvas::getScheme()
+{
+    return &scheme;
+}
+
 void Canvas::Additem(qreal x, qreal y)
 {
     if (parentWindow->getSelectedItem() != MainWindow::ITEM_LINKER) {
@@ -142,19 +147,26 @@ void Canvas::createBlock(double x, double y)
     QBrush brush = QBrush();
     double rHeight = 125;
     double rWidth = 75;
-    this->addRect(x,y, rWidth, rHeight, pen , brush);
+    QGraphicsItem *blockItem;
+    blockItem = this->addRect(x,y, rWidth, rHeight, pen , brush);
     QGraphicsTextItem * txt = new QGraphicsTextItem;
     txt->setPos(x+20,y+3);
     txt->setPlainText(getActualBlockName());
 
     this->addItem(txt);
     Block *b = scheme.addBlock(new Block(parentWindow->getSelectedItem(), x, y, rWidth, rHeight));
+    blockItem->setData(0,QVariant(scheme.getLastBlockIndex()));
+    blockItems.push_back(blockItem);
     pen.setColor(QColor(255,0,0,255));
     for (int i=0; i < b->inPortsNumber; i++) { // draw in ports
         QGraphicsEllipseItem *circle = this->addEllipse(b->getInPort(i)->getX(),b->getInPort(i)->getY(),17,17,pen,brush);
         circle->setData(0,QVariant("INPUT"));
         circle->setData(1,QVariant(i));
         circle->setData(2,QVariant(scheme.getLastBlockIndex()));
+        QGraphicsTextItem * portTxt = new QGraphicsTextItem;
+        portTxt->setPos(b->getInPort(i)->getX()+5,b->getInPort(i)->getY()+12);
+        portTxt->setPlainText(QString("in") + QString::number(i,10));
+        this->addItem(portTxt);
     }
     pen.setColor(QColor(0,0,0,255));
     for (int i=0; i < b->outPortsNumber; i++) { // draw out ports
@@ -162,6 +174,10 @@ void Canvas::createBlock(double x, double y)
         circle->setData(0,QVariant("OUTPUT"));
         circle->setData(1,QVariant(i));
         circle->setData(2,QVariant(scheme.getLastBlockIndex()));
+        QGraphicsTextItem * portTxt = new QGraphicsTextItem;
+        portTxt->setPos(b->getOutPort(i)->getX()-15,b->getOutPort(i)->getY()+12);
+        portTxt->setPlainText(QString("out") + QString::number(i,10));
+        this->addItem(portTxt);
     }
 }
 

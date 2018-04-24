@@ -6,12 +6,12 @@
 
 class Scheme
 {
-private:
-    std::vector<Block*> blocks;
+
 
 public:
     Scheme();
 
+    bool isSchemeLooped();
     bool stepOne();
     void stepAll();
     int getLastBlockIndex();
@@ -23,6 +23,10 @@ public:
     Block* addBlock(Block *block);
 
     void clear();
+
+private:
+    bool isLooped(Block *block, int maxDepth, int currentDepth);
+    std::vector<Block*> blocks;
 };
 
 #endif // SCHEME_H

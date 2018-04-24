@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "scheme.h"
+#include <QMessageBox>
 
 
 MainWindow::MainWindow()
@@ -92,7 +94,10 @@ void MainWindow::simulateAll()
 
 void MainWindow::simulateStep()
 {
-
+    if (canvas->getScheme()->isSchemeLooped()) {
+        qDebug() << "loop";
+        QMessageBox(QMessageBox::Warning, QString("WARNING"), QString("Loop in scheme is detected!"), QMessageBox::Ok, 0, Qt::MSWindowsFixedSizeDialogHint);
+    }
 }
 
 void MainWindow::createMenu()

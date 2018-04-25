@@ -107,6 +107,11 @@ int Scheme::getLastBlockIndex()
     return blocks.size() - 1;
 }
 
+bool Scheme::isSimulationFinished()
+{
+    return blocks.size() == alreadyCalculated.size();
+}
+
 Block* Scheme::getBlock(int index)
 {
     return blocks[index];

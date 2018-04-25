@@ -14,6 +14,8 @@
 #include "canvas.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QLabel>
+
 
 class Canvas;
 
@@ -77,6 +79,7 @@ private:
    QPushButton *buttonGT;
    QPushButton *buttonLT;
    QPushButton *buttonLinker;
+   QLabel *output;
 
 
 };

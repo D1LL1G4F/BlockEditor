@@ -14,6 +14,7 @@ public:
     bool isSchemeLooped();
     std::vector<int> simulateStep();
     int getLastBlockIndex();
+    bool isSimulationFinished();
     Block* getBlock(int index);
 
     void save(std::string path);

@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "scheme.h"
 #include <QMessageBox>
-#include <QLabel>
 
 
 MainWindow::MainWindow()
@@ -112,6 +111,12 @@ void MainWindow::simulateStep()
     catch (char const *error) {
         QMessageBox::warning(this, tr("BlockEditor WARNING"), tr(error), QMessageBox::Cancel);
     }
+   /* if (canvas->getScheme()->isSimulationFinished()) {
+        QString results = "";
+        for (int block : blocks) {
+            canvas->getScheme()->getBlock(block)->getOutPort()->getValue();
+        }
+    }*/
 }
 
 void MainWindow::createMenu()
@@ -174,7 +179,6 @@ void MainWindow::createButtons()
 
     connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(selectItem(int)));
 
-    QLabel *output;
     output = new QLabel(tr(""));
     output->setStyleSheet("QLabel {background-color: #ffffff; }");
 

@@ -25,6 +25,11 @@ int MainWindow::getSelectedItem()
     return selectedItem;
 }
 
+QLabel *MainWindow::getOutputScr()
+{
+    return output;
+}
+
 void MainWindow::saveScheme()
 {
 
@@ -98,6 +103,9 @@ void MainWindow::simulateStep()
         qDebug() << "loop";
         QMessageBox::warning(this, tr("BlockEditor WARNING"), tr("Loops detected in scheme"), QMessageBox::Cancel);
     }
+    if (canvas->getScheme()->isSimulationFinished()) {
+        return;
+    }
     std::vector<int> blocks;
     try {
         blocks = canvas->getScheme()->simulateStep();
@@ -111,12 +119,13 @@ void MainWindow::simulateStep()
     catch (char const *error) {
         QMessageBox::warning(this, tr("BlockEditor WARNING"), tr(error), QMessageBox::Cancel);
     }
-   /* if (canvas->getScheme()->isSimulationFinished()) {
+    if (canvas->getScheme()->isSimulationFinished()) {
         QString results = "";
         for (int block : blocks) {
-            canvas->getScheme()->getBlock(block)->getOutPort()->getValue();
+            results += "Result: " + QString::number(canvas->getScheme()->getBlock(block)->getOutPort(0)->getValue()) + "\n";
         }
-    }*/
+        output->setText(results);
+    }
 }
 
 void MainWindow::createMenu()

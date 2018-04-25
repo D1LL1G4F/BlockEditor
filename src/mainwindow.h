@@ -38,6 +38,7 @@ public:
    static const int ITEM_LINKER = 8;
 
    int getSelectedItem();
+   QLabel *getOutputScr();
 
 private slots:
 

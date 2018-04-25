@@ -110,7 +110,7 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         Linker *line ;
         bool err = false;
         try {
-            line = new Linker(sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
+            line = new Linker(parentWindow->getOutputScr(), sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
         }
         catch (int a){
             err = true;

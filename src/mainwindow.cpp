@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "scheme.h"
 #include <QMessageBox>
+#include <QLabel>
 
 
 MainWindow::MainWindow()
@@ -101,6 +102,9 @@ void MainWindow::simulateStep()
     std::vector<int> blocks;
     try {
         blocks = canvas->getScheme()->simulateStep();
+        for (int i = 0; i < canvas->getScheme()->getLastBlockIndex()+1; i++) {
+            canvas->changeRectColor(i,QColor(0,0,0,255));
+        }
         for (int block : blocks) {
             canvas->changeRectColor(block,QColor(255,0,0,255));
         }
@@ -168,7 +172,11 @@ void MainWindow::createButtons()
     signalMapper -> setMapping (buttonLT, ITEM_LT);
     signalMapper -> setMapping (buttonLinker, ITEM_LINKER);
 
-    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(selectItem(int))) ;
+    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(selectItem(int)));
+
+    QLabel *output;
+    output = new QLabel(tr(""));
+    output->setStyleSheet("QLabel {background-color: #ffffff; }");
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(buttonAND);
@@ -180,6 +188,7 @@ void MainWindow::createButtons()
     layout->addWidget(buttonGT);
     layout->addWidget(buttonLT);
     layout->addWidget(buttonLinker);
+    layout->addWidget(output);
 
     leftBar = new QWidget;
     leftBar->setLayout(layout);

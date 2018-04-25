@@ -5,6 +5,7 @@
 #include <cmath>
 #include "mainwindow.h"
 #include "linker.h"
+#include <QMessageBox>
 
 
 Canvas::Canvas(MainWindow *parent) : QGraphicsScene(parent)
@@ -113,6 +114,7 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         }
         catch (int a){
             err = true;
+            QMessageBox::warning(NULL, tr("BlockEditor WARNING"), tr("Incompatible port types"), QMessageBox::Cancel);
         }
         if (!err) {
             addItem(line);
@@ -253,5 +255,6 @@ void Canvas::changeRectColor(int idx, QColor color)
     double rHeight = 125;
     double rWidth = 75;
     blckItem = this->addRect(block->getX(),block->getY(), rWidth, rHeight, pen , brush);
+    blckItem->setZValue(-1);
     blockItems.at(idx) = blckItem;
 }

@@ -94,6 +94,9 @@ void MainWindow::selectItem(const int itemType)
 
 void MainWindow::simulateAll()
 {
+    while (!canvas->getScheme()->isSimulationFinished()) {
+        simulateStep();
+    }
 
 }
 

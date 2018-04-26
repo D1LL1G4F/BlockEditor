@@ -1,5 +1,8 @@
 QT    += widgets
 
+INCLUDEPATH += \
+    C:\boost\boost_1_67_0
+
 SUBDIRS += \
     BlockEditorQt.pro
 

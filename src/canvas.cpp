@@ -107,7 +107,7 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         Port *sourcePort = getPortPtrFromItem(sourceItem);
         double sourceX = sourcePort->getX();
         double sourceY = sourcePort->getY();
-        Linker *line ;
+        Linker *line;
         bool err = false;
         try {
             line = new Linker(parentWindow->getOutputScr(), sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
@@ -243,6 +243,69 @@ Port *Canvas::getPortPtrFromItem(QGraphicsItem *item)
     }
 }
 
+void Canvas::reloadScheme()
+{
+    clearAll();
+    scheme.resetSimulation();
+    for (int blockIdx = 0; blockIdx < scheme.getLastBlockIndex()+1 ; blockIdx++) {
+        Block *blck;
+        blck = scheme.getBlock(blockIdx);
+        QPen pen = QPen();
+        pen.setWidth(4);
+        QBrush brush = QBrush();
+        double rHeight = 125;
+        double rWidth = 75;
+        QGraphicsItem *blockItem;
+        blockItem = this->addRect(blck->getX(), blck->getY() ,rWidth ,rHeight, pen , brush);
+        QGraphicsTextItem * txt = new QGraphicsTextItem;
+        txt->setPos(blck->getX()+20,blck->getY()+3);
+        txt->setPlainText(getActualBlockName(blck->getType()));
+        for (int i=0; i < blck->inPortsNumber; i++) { // draw in ports
+            QGraphicsEllipseItem *circle = this->addEllipse(blck->getInPort(i)->getX(),blck->getInPort(i)->getY(),17,17,pen,brush);
+            circle->setData(0,QVariant("INPUT"));
+            circle->setData(1,QVariant(i));
+            circle->setData(2,QVariant(blockIdx));
+            QGraphicsTextItem * portTxt = new QGraphicsTextItem;
+            portTxt->setPos(blck->getInPort(i)->getX()+5,blck->getInPort(i)->getY()+12);
+            portTxt->setPlainText(QString("in") + QString::number(i,10));
+            this->addItem(portTxt);
+        }
+        pen.setColor(QColor(0,0,0,255));
+        for (int i=0; i < blck->outPortsNumber; i++) { // draw out ports
+            QGraphicsEllipseItem *circle = this->addEllipse(blck->getOutPort(i)->getX(),blck->getOutPort(i)->getY(),17,17,pen,brush);
+            circle->setData(0,QVariant("OUTPUT"));
+            circle->setData(1,QVariant(i));
+            circle->setData(2,QVariant(blockIdx));
+            QGraphicsTextItem * portTxt = new QGraphicsTextItem;
+            portTxt->setPos(blck->getOutPort(i)->getX()-15,blck->getOutPort(i)->getY()+12);
+            portTxt->setPlainText(QString("out") + QString::number(i,10));
+            this->addItem(portTxt);
+        }
+        for (int i=0; i < blck->outPortsNumber; i++) { // add linkers
+            Port *outPort;
+            outPort = blck->getOutPort(i);
+            if (outPort->pairedPort) {
+                Linker *line;
+                bool err = false;
+                try {
+                    line = new Linker(parentWindow->getOutputScr(), outPort,outPort->pairedPort,outPort->getX()+8,outPort->getY()+8, outPort->pairedPort->getX()+8, outPort->pairedPort->getY()+8);
+                }
+                catch (int a){
+                    err = true;
+                    QMessageBox::warning(NULL, tr("BlockEditor WARNING"), tr("Incompatible port types"), QMessageBox::Cancel);
+                }
+                if (!err) {
+                    addItem(line);
+                    QGraphicsItem *firstCircle = this->itemAt(outPort->getX(),outPort->getY(),QTransform());
+                    changeCircleColor(firstCircle,QColor(0,0,255,255));
+                    QGraphicsItem *secondCircle = this->itemAt(outPort->pairedPort->getX(),outPort->pairedPort->getY(),QTransform());
+                    changeCircleColor(secondCircle,QColor(0,0,255,255));
+                }
+            }
+        }
+    }
+}
+
 void Canvas::changeRectColor(int idx, QColor color)
 {
     QGraphicsItem *blckItem = blockItems.at(idx);
@@ -257,4 +320,10 @@ void Canvas::changeRectColor(int idx, QColor color)
     blckItem = this->addRect(block->getX(),block->getY(), rWidth, rHeight, pen , brush);
     blckItem->setZValue(-1);
     blockItems.at(idx) = blckItem;
+}
+
+void Canvas::setScheme(Scheme newScheme)
+{
+    scheme = newScheme;
+    reloadScheme();
 }

@@ -46,7 +46,6 @@ void Port::unset()
 {
     status = false;
     value = 0;
-    pairedPort = nullptr;
 }
 
 bool Port::isIn()

@@ -48,6 +48,7 @@ private slots:
    void selectItem(int);
    void simulateAll();
    void simulateStep();
+   void resetSim();
 
 
 
@@ -71,6 +72,7 @@ private:
    QAction *del;
    QAction *simAll;
    QAction *simStep;
+   QAction *simReset;
    QPushButton *buttonAND;
    QPushButton *buttonOR;
    QPushButton *buttonXOR;

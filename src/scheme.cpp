@@ -33,6 +33,23 @@ std::vector<int> Scheme::simulateStep()
     return calculatedIndexes;
 }
 
+void Scheme::resetSimulation()
+{
+    for (Block* block : blocks) {
+        for (int i = 0; i < block->outPortsNumber; i++) {
+            block->getOutPort(i)->unset();
+        }
+        for (int i = 0; i < block->inPortsNumber; i++) {
+            Port *inPort;
+            inPort = block->getInPort(i);
+            if (inPort->pairedPort != nullptr) {
+                inPort->unset();
+            }
+        }
+    }
+    alreadyCalculated.clear();
+}
+
 Block* Scheme::addBlock(Block *block) {
     blocks.push_back(block);
 

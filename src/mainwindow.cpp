@@ -128,6 +128,15 @@ void MainWindow::simulateStep()
     }
 }
 
+void MainWindow::resetSim()
+{
+    canvas->getScheme()->resetSimulation();
+    output->setText("");
+    for (int i = 0; i < canvas->getScheme()->getLastBlockIndex()+1; i++) {
+        canvas->changeRectColor(i,QColor(0,0,0,255));
+    }
+}
+
 void MainWindow::createMenu()
 {
     save = menuBar()->addAction("&Save Scheme");
@@ -151,6 +160,11 @@ void MainWindow::createMenu()
     simStep->setShortcuts(QKeySequence::MoveToNextChar);
     simStep->setStatusTip(tr("performs single step of simulation"));
     connect(simStep, &QAction::triggered, this, &MainWindow::simulateStep);
+
+    simReset = menuBar()->addAction(tr("&Reset simulation"));
+    simReset->setShortcuts(QKeySequence::MoveToNextChar);
+    simReset->setStatusTip(tr("reset simulation process"));
+    connect(simReset, &QAction::triggered, this, &MainWindow::resetSim);
 }
 
 void MainWindow::createButtons()
@@ -189,7 +203,7 @@ void MainWindow::createButtons()
     connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(selectItem(int)));
 
     output = new QLabel(tr(""));
-    output->setStyleSheet("QLabel {background-color: #ffffff; }");
+    output->setStyleSheet("QLabel {background-color: #ffffff;}");
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(buttonAND);

@@ -13,6 +13,7 @@ public:
 
     bool isSchemeLooped();
     std::vector<int> simulateStep();
+    void resetSimulation();
     int getLastBlockIndex();
     bool isSimulationFinished();
     Block* getBlock(int index);

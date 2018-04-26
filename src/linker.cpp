@@ -35,7 +35,11 @@ void Linker::hoverEnterEvent(QGraphicsSceneHoverEvent *evnt)
     pen.setColor(QColor(0,0,0,255));
     setPen(pen);
     prevOutput = outputScr->text();
-    outputScr->setText(QString("Current value: ") + QString::number(srcPort->getValue()));
+    if (srcPort->isSet()) {
+        outputScr->setText(QString("Current value: ") + QString::number(srcPort->getValue()));
+    } else {
+        outputScr->setText(QString("Current value: \nundefined"));
+    }
 }
 
 void Linker::hoverLeaveEvent(QGraphicsSceneHoverEvent *)

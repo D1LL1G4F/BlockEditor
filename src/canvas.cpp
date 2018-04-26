@@ -245,8 +245,8 @@ Port *Canvas::getPortPtrFromItem(QGraphicsItem *item)
 
 void Canvas::reloadScheme()
 {
-    clearAll();
     scheme.resetSimulation();
+    clear();
     for (int blockIdx = 0; blockIdx < scheme.getLastBlockIndex()+1 ; blockIdx++) {
         Block *blck;
         blck = scheme.getBlock(blockIdx);
@@ -285,6 +285,10 @@ void Canvas::reloadScheme()
             portTxt->setPlainText(QString("out") + QString::number(i,10));
             this->addItem(portTxt);
         }
+    }
+    for (int blockIdx = 0; blockIdx < scheme.getLastBlockIndex()+1 ; blockIdx++) {
+        Block *blck;
+        blck = scheme.getBlock(blockIdx);
         for (int i=0; i < blck->outPortsNumber; i++) { // add linkers
             Port *outPort;
             outPort = blck->getOutPort(i);
@@ -300,9 +304,9 @@ void Canvas::reloadScheme()
                 }
                 if (!err) {
                     addItem(line);
-                    QGraphicsItem *firstCircle = this->itemAt(outPort->getX(),outPort->getY(),QTransform());
+                    QGraphicsItem *firstCircle = this->itemAt(outPort->getX()+2,outPort->getY()+2,QTransform());
                     changeCircleColor(firstCircle,QColor(0,0,255,255));
-                    QGraphicsItem *secondCircle = this->itemAt(outPort->pairedPort->getX(),outPort->pairedPort->getY(),QTransform());
+                    QGraphicsItem *secondCircle = this->itemAt(outPort->pairedPort->getX()+2,outPort->pairedPort->getY()+2,QTransform());
                     changeCircleColor(secondCircle,QColor(0,0,255,255));
                 }
             }
@@ -328,6 +332,6 @@ void Canvas::changeRectColor(int idx, QColor color)
 
 void Canvas::setScheme(Scheme newScheme)
 {
-    //scheme = newScheme;
+    scheme = newScheme;
     reloadScheme();
 }

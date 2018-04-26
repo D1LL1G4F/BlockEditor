@@ -77,7 +77,9 @@ void Block::calculate()
         outPorts[0].set(fabs(inPorts[0].getValue() - inPorts[1].getValue()) > 0.5);
         break;
     case MainWindow::ITEM_ADD:
+        qDebug() << "meh0";
         outPorts[0].set(inPorts[0].getValue() + inPorts[1].getValue());
+        qDebug() << "meh1";
         break;
     case MainWindow::ITEM_SUB:
         outPorts[0].set(inPorts[0].getValue() - inPorts[1].getValue());

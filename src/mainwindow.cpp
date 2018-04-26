@@ -32,7 +32,7 @@ QLabel *MainWindow::getOutputScr()
 
 void MainWindow::saveScheme()
 {
-
+    canvas->setScheme(*(canvas->getScheme()));
 }
 
 void MainWindow::deleteScheme()

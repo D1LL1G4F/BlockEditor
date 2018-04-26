@@ -260,6 +260,10 @@ void Canvas::reloadScheme()
         QGraphicsTextItem * txt = new QGraphicsTextItem;
         txt->setPos(blck->getX()+20,blck->getY()+3);
         txt->setPlainText(getActualBlockName(blck->getType()));
+        this->addItem(txt);
+        blockItem->setData(0,QVariant(blockIdx));
+        blockItems.push_back(blockItem);
+        pen.setColor(QColor(255,0,0,255));
         for (int i=0; i < blck->inPortsNumber; i++) { // draw in ports
             QGraphicsEllipseItem *circle = this->addEllipse(blck->getInPort(i)->getX(),blck->getInPort(i)->getY(),17,17,pen,brush);
             circle->setData(0,QVariant("INPUT"));
@@ -324,6 +328,6 @@ void Canvas::changeRectColor(int idx, QColor color)
 
 void Canvas::setScheme(Scheme newScheme)
 {
-    scheme = newScheme;
+    //scheme = newScheme;
     reloadScheme();
 }

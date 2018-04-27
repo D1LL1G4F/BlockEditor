@@ -45,6 +45,7 @@ void MainWindow::saveScheme()
     resetSim();
     json::ptree root;
     root = canvas->getScheme()->serializeToJson();
+    json::write_json(std::cout,root);
     canvas->getScheme()->loadScheme(root);
 }
 

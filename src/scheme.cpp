@@ -176,6 +176,7 @@ json::ptree Scheme::serializeToJson()
         b.put("blockType",block->getType());
         b.put("x",block->getX());
         b.put("y",block->getY());
+        json::ptree inPorts;
         for (int i = 0; i < block->inPortsNumber; i++) {
             Port *port;
             port = block->getInPort(i);
@@ -194,8 +195,10 @@ json::ptree Scheme::serializeToJson()
                 p.put("pairedPortY",-1);
             }
             //
-            b.push_back(std::make_pair("inputPort", p));
+            inPorts.push_back(std::make_pair("Port", p));
         }
+        b.add_child("inputPorts",inPorts);
+        json::ptree outPorts;
         for (int i = 0; i < block->outPortsNumber; i++) {
             Port *port;
             port = block->getOutPort(i);
@@ -214,8 +217,9 @@ json::ptree Scheme::serializeToJson()
                 p.put("pairedPortY",-1);
             }
             //
-            b.push_back(std::make_pair("outputPort", p));
+            outPorts.push_back(std::make_pair("Port", p));
         }
+        b.add_child("outputPorts",outPorts);
         //
         blockNodes.push_back(std::make_pair("block", b));
     }
@@ -236,10 +240,12 @@ void Scheme::loadScheme(boost::property_tree::ptree root)
         blockType = blockNode.second.get<int>("blockType");
         x = blockNode.second.get<double>("x");
         y = blockNode.second.get<double>("y");
+        qDebug() << x;
+        qDebug() << y;
         Block *b;
         b = addBlock(new Block(blockType,x,y,BLOCK_WIDTH,BLOCK_HEIGHT));
         int iter = 0;
-        for (json::ptree::value_type &inPortNode : blockNode.second.get_child("inputPort")) {
+        for (json::ptree::value_type &inPortNode : blockNode.second.get_child("inputPorts")) {
             if (inPortNode.second.get<bool>("status")) {
                 b->getInPort(iter)->set(inPortNode.second.get<double>("value"));
             }
@@ -251,7 +257,7 @@ void Scheme::loadScheme(boost::property_tree::ptree root)
         Block *b;
         b = getBlock(blckIter);
         int portIter = 0;
-        for (json::ptree::value_type &inPortNode : blockNode.second.get_child("inputPort")) {
+        for (json::ptree::value_type &inPortNode : blockNode.second.get_child("inputPorts")) {
             Port *p;
             p = b->getInPort(portIter);
             double pairedX = inPortNode.second.get<double>("pairedPortX");
@@ -262,7 +268,7 @@ void Scheme::loadScheme(boost::property_tree::ptree root)
             portIter++;
         }
         portIter = 0;
-        for (json::ptree::value_type &outPortNode : blockNode.second.get_child("outputPort")) {
+        for (json::ptree::value_type &outPortNode : blockNode.second.get_child("outputPorts")) {
             Port *p;
             p = b->getOutPort(portIter);
             double pairedX = outPortNode.second.get<double>("pairedPortX");

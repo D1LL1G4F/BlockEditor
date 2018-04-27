@@ -1,5 +1,7 @@
 #include "scheme.h"
 
+namespace json = boost::property_tree;
+
 Scheme::Scheme()
 {
 
@@ -132,4 +134,20 @@ bool Scheme::isSimulationFinished()
 Block* Scheme::getBlock(int index)
 {
     return blocks[index];
+}
+
+json::ptree Scheme::serializeToJson()
+{
+    json::ptree root;
+    json::ptree blockNodes;
+    for (Block* block : blocks) {
+        json::ptree b;
+        //
+        b.put("inPortsNumber",block->inPortsNumber);
+        b.put("outPortsNumber",block->outPortsNumber);
+        //
+        blockNodes.push_back(std::make_pair("", b));
+    }
+    root.add_child("Blocks", blockNodes);
+    return root;
 }

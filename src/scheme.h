@@ -3,6 +3,10 @@
 
 #include <vector>
 #include "block.h"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
+namespace json = boost::property_tree;
 
 class Scheme
 {
@@ -18,8 +22,7 @@ public:
     bool isSimulationFinished();
     Block* getBlock(int index);
 
-    void save(std::string path);
-    void load(std::string path);
+    json::ptree serializeToJson();
 
     Block* addBlock(Block *block);
 

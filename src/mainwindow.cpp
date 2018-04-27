@@ -3,6 +3,9 @@
 #include <QMessageBox>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <QInputDialog>
+
+namespace json = boost::property_tree;
 
 
 MainWindow::MainWindow()
@@ -34,7 +37,14 @@ QLabel *MainWindow::getOutputScr()
 
 void MainWindow::saveScheme()
 {
-    canvas->setScheme(*(canvas->getScheme()));
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("BlockEditor save scheme"), tr("Enter scheme name:"), QLineEdit::Normal,"Scheme name", &ok);
+    if (!ok || !text.isEmpty()) {
+        return;
+    }
+    json::ptree root;
+    root = canvas->getScheme()->serializeToJson();
+    json::write_json(std::cout, root);
 }
 
 void MainWindow::deleteScheme()
@@ -45,7 +55,7 @@ void MainWindow::deleteScheme()
 
 void MainWindow::loadScheme()
 {
-
+    //canvas->setScheme(*(canvas->getScheme()));
 }
 
 void MainWindow::selectItem(const int itemType)

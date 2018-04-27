@@ -2,6 +2,9 @@
 
 namespace json = boost::property_tree;
 
+#define BLOCK_WIDTH 75
+#define BLOCK_HEIGHT 125
+
 Scheme::Scheme()
 {
 
@@ -193,4 +196,58 @@ json::ptree Scheme::serializeToJson()
     }
     root.add_child("Blocks", blockNodes);
     return root;
+}
+
+void Scheme::loadScheme(boost::property_tree::ptree root)
+{
+    blocks.clear();
+    alreadyCalculated.clear();
+
+    for (json::ptree::value_type &blockNode : root.get_child("Blocks")) { // create blocks
+        int blockType;
+        double x;
+        double y;
+
+        blockType = blockNode.second.get<int>("blockType");
+        x = blockNode.second.get<double>("x");
+        y = blockNode.second.get<double>("y");
+        Block *b;
+        b = addBlock(new Block(blockType,x,y,BLOCK_WIDTH,BLOCK_HEIGHT));
+        int iter = 0;
+        for (json::ptree::value_type &inPortNode : blockNode.second.get_child("inputPort")) {
+            if (inPortNode.second.get<bool>("status")) {
+                b->getInPort(iter)->set(inPortNode.second.get<double>("value"));
+            }
+            iter++;
+        }
+    }
+    int blckIter = 0;
+    for (json::ptree::value_type &blockNode : root.get_child("Blocks")) { // add pointers to ports
+        Block *b;
+        b = getBlock(blckIter);
+        int portIter = 0;
+        for (json::ptree::value_type &inPortNode : blockNode.second.get_child("inputPort")) {
+            Port *p;
+            p = b->getInPort(portIter);
+            double pairedX = inPortNode.second.get<double>("pairedPortX");
+            double pairedY = inPortNode.second.get<double>("pairedPortY");
+            if (pairedX > 0 && pairedY > 0) {
+                p->pairedPort = getPortByCoords(pairedX, pairedY);
+            }
+            portIter++;
+        }
+        portIter = 0;
+        for (json::ptree::value_type &outPortNode : blockNode.second.get_child("outputPort")) {
+            Port *p;
+            p = b->getOutPort(portIter);
+            double pairedX = outPortNode.second.get<double>("pairedPortX");
+            double pairedY = outPortNode.second.get<double>("pairedPortY");
+            if (pairedX > 0 && pairedY > 0) {
+                p->pairedPort = getPortByCoords(pairedX, pairedY);
+            }
+            portIter++;
+        }
+        blckIter++;
+    }
+
 }

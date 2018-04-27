@@ -23,6 +23,7 @@ public:
     Block* getBlock(int index);
 
     json::ptree serializeToJson();
+    void loadScheme(json::ptree root);
 
     Block* addBlock(Block *block);
 

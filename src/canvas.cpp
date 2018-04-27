@@ -7,6 +7,9 @@
 #include "linker.h"
 #include <QMessageBox>
 
+#define BLOCK_WIDTH 75
+#define BLOCK_HEIGHT 125
+
 
 Canvas::Canvas(MainWindow *parent) : QGraphicsScene(parent)
 {
@@ -147,8 +150,8 @@ void Canvas::createBlock(double x, double y)
     QPen pen = QPen();
     pen.setWidth(4);
     QBrush brush = QBrush();
-    double rHeight = 125;
-    double rWidth = 75;
+    double rHeight = BLOCK_HEIGHT;
+    double rWidth = BLOCK_WIDTH;
     QGraphicsItem *blockItem;
     blockItem = this->addRect(x,y, rWidth, rHeight, pen , brush);
     QGraphicsTextItem * txt = new QGraphicsTextItem;

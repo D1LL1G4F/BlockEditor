@@ -36,6 +36,7 @@ private:
     int getIdxByBlock(Block *blockPtr);
     std::vector<int> alreadyCalculated;
     std::vector<Block*> blocks;
+    Port *getPortByCoords(double x, double y);
 };
 
 #endif // SCHEME_H

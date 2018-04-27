@@ -124,6 +124,31 @@ int Scheme::getIdxByBlock(Block *blockPtr)
     return 0;
 }
 
+Port *Scheme::getPortByCoords(double x, double y)
+{
+    for (Block* b : blocks) {
+        for (int i = 0; i < b->outPortsNumber; i++) {
+            Port *outP;
+            outP = b->getOutPort(i);
+            double xOff = fabs(x - outP->getX());
+            double yOff = fabs(y - outP->getY());
+            if (xOff < 0.05 && yOff < 0.05 ) {
+                return outP;
+            }
+        }
+        for (int i = 0; i < b->inPortsNumber; i++) {
+            Port *inP;
+            inP = b->getInPort(i);
+            double xOff = fabs(x - inP->getX());
+            double yOff = fabs(y - inP->getY());
+            if (xOff < 0.05 && yOff < 0.05 ) {
+                return inP;
+            }
+        }
+    }
+    return nullptr;
+}
+
 int Scheme::getLastBlockIndex()
 {
     return blocks.size() - 1;

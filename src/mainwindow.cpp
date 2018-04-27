@@ -39,7 +39,7 @@ void MainWindow::saveScheme()
 {
     bool ok;
     QString text = QInputDialog::getText(this, tr("BlockEditor save scheme"), tr("Enter scheme name:"), QLineEdit::Normal,"Scheme name", &ok);
-    if (!ok || !text.isEmpty()) {
+    if (!ok || text.isEmpty()) {
         return;
     }
     json::ptree root;

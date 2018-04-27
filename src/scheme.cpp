@@ -145,8 +145,51 @@ json::ptree Scheme::serializeToJson()
         //
         b.put("inPortsNumber",block->inPortsNumber);
         b.put("outPortsNumber",block->outPortsNumber);
+        b.put("blockType",block->getType());
+        b.put("x",block->getX());
+        b.put("y",block->getY());
+        for (int i = 0; i < block->inPortsNumber; i++) {
+            Port *port;
+            port = block->getInPort(i);
+            json::ptree p;
+            //
+            p.put("type",port->getType());
+            p.put("value",port->getValue());
+            p.put("status",port->isSet());
+            p.put("x",port->getX());
+            p.put("y",port->getY());
+            if (port->pairedPort) {
+                p.put("pairedPortX",port->pairedPort->getX());
+                p.put("pairedPortY",port->pairedPort->getY());
+            } else {
+                p.put("pairedPortX",-1);
+                p.put("pairedPortY",-1);
+            }
+            //
+            b.push_back(std::make_pair("inputPort", p));
+        }
+        for (int i = 0; i < block->outPortsNumber; i++) {
+            Port *port;
+            port = block->getOutPort(i);
+            json::ptree p;
+            //
+            p.put("type",port->getType());
+            p.put("value",port->getValue());
+            p.put("status",port->isSet());
+            p.put("x",port->getX());
+            p.put("y",port->getY());
+            if (port->pairedPort) {
+                p.put("pairedPortX",port->pairedPort->getX());
+                p.put("pairedPortY",port->pairedPort->getY());
+            } else {
+                p.put("pairedPortX",-1);
+                p.put("pairedPortY",-1);
+            }
+            //
+            b.push_back(std::make_pair("outputPort", p));
+        }
         //
-        blockNodes.push_back(std::make_pair("", b));
+        blockNodes.push_back(std::make_pair("block", b));
     }
     root.add_child("Blocks", blockNodes);
     return root;

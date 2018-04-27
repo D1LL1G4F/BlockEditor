@@ -4,6 +4,10 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <QInputDialog>
+#include <QFile>
+#include <QFileDialog>
+#include <iostream>
+#include <fstream>
 
 namespace json = boost::property_tree;
 
@@ -37,16 +41,42 @@ QLabel *MainWindow::getOutputScr()
 
 void MainWindow::saveScheme()
 {
-    bool ok;
+    /*bool ok;
     QString text = QInputDialog::getText(this, tr("BlockEditor save scheme"), tr("Enter scheme name:"), QLineEdit::Normal,"Scheme name", &ok);
-    if (!ok || text.isEmpty()) {
+    if (!ok) {
+        return;
+    }
+    if (text.isEmpty()) {
+        saveScheme();
         return;
     }
     resetSim();
     json::ptree root;
     root = canvas->getScheme()->serializeToJson();
-    json::write_json(std::cout,root);
-    canvas->getScheme()->loadScheme(root);
+    std::fstream newfile;
+    newfile.open("./examples/" + text.toStdString(),std::fstream::out);
+    stringstream jsonStream;
+    json::write_json(jsonStream,root);
+    newfile << jsonStream.str();
+    newfile << std::flush;
+    newfile.close();*/
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Scheme"), "new_scheme.schm",tr("Scheme file (*.schm);;All Files (*)"));
+
+    if (fileName.isEmpty())
+        return;
+    else {
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            QMessageBox::information(this, tr("Unable to open file"), file.errorString());
+            return;
+        }
+            resetSim();
+            json::ptree root;
+            stringstream jsonStream;
+            json::write_json(jsonStream,root);
+            QDataStream out(&file);
+            out << jsonStream;
+        }
 }
 
 void MainWindow::deleteScheme()
@@ -58,6 +88,7 @@ void MainWindow::deleteScheme()
 void MainWindow::loadScheme()
 {
     //canvas->setScheme(*(canvas->getScheme()));
+
 }
 
 void MainWindow::selectItem(const int itemType)

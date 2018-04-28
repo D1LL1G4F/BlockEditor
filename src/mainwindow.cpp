@@ -58,7 +58,6 @@ void MainWindow::saveScheme()
 void MainWindow::deleteScheme()
 {
     canvas->clearAll();
-
 }
 
 void MainWindow::loadScheme()

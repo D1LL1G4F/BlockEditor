@@ -25,10 +25,8 @@ public:
     const static int offsetX = 260;
     const static int offsetY = 50;
 
-    void clearAll() {
-        clear();
-        scheme.clear();
-    }
+    void clearAll();
+
     void reloadScheme();
     Scheme* getScheme();
     void changeRectColor(int idx, QColor color);

@@ -58,6 +58,7 @@ void MainWindow::saveScheme()
 void MainWindow::deleteScheme()
 {
     canvas->clearAll();
+    output->setText("");
 }
 
 void MainWindow::loadScheme()
@@ -80,6 +81,7 @@ void MainWindow::loadScheme()
             }
 
         }
+        output->setText("");
 }
 
 void MainWindow::selectItem(const int itemType)

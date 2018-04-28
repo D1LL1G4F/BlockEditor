@@ -333,8 +333,8 @@ void Canvas::changeRectColor(int idx, QColor color)
     blockItems.at(idx) = blckItem;
 }
 
-void Canvas::setScheme(Scheme newScheme)
+void Canvas::setScheme(boost::property_tree::ptree root)
 {
-    scheme = newScheme;
+    scheme.loadScheme(root);
     reloadScheme();
 }

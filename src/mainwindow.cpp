@@ -41,29 +41,12 @@ QLabel *MainWindow::getOutputScr()
 
 void MainWindow::saveScheme()
 {
-    /*bool ok;
-    QString text = QInputDialog::getText(this, tr("BlockEditor save scheme"), tr("Enter scheme name:"), QLineEdit::Normal,"Scheme name", &ok);
-    if (!ok) {
-        return;
-    }
-    if (text.isEmpty()) {
-        saveScheme();
-        return;
-    }
-    resetSim();
-    json::ptree root;
-    root = canvas->getScheme()->serializeToJson();
-    std::fstream newfile;
-    newfile.open("./examples/" + text.toStdString(),std::fstream::out);
-    stringstream jsonStream;
-    json::write_json(jsonStream,root);
-    newfile << jsonStream.str();
-    newfile << std::flush;
-    newfile.close();*/
-    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Scheme"), "new_scheme.schm",tr("Scheme file (*.schm);;All Files (*)"));
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Scheme"), "new_scheme",tr("All files (*)"));
 
-    if (fileName.isEmpty())
+    if (fileName.isEmpty()) {
+        QMessageBox::warning(this, tr("BlockEditor error"), tr("File name cannot be empty"), QMessageBox::Cancel);
         return;
+    }
     else {
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly)) {
@@ -76,6 +59,7 @@ void MainWindow::saveScheme()
             json::write_json(jsonStream,root);
             QDataStream out(&file);
             out << jsonStream;
+            file.close();
         }
 }
 
@@ -87,8 +71,24 @@ void MainWindow::deleteScheme()
 
 void MainWindow::loadScheme()
 {
-    //canvas->setScheme(*(canvas->getScheme()));
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Load scheme"), "",tr("All files (*)"));
 
+        if (fileName.isEmpty()) {
+            QMessageBox::warning(this, tr("BlockEditor error"), tr("Cannot load selected file"), QMessageBox::Cancel);
+            return;
+        }
+        else {
+            json::ptree root;
+            try {
+                json::read_json(fileName.toStdString(),root);
+                canvas->setScheme(root);
+            }
+            catch (std::exception const&  ex) {
+                string str("Cannot load selected file ERR_INFO(" + string(ex.what()) + ")");
+                QMessageBox::warning(this, tr("BlockEditor error"), tr(str.c_str()), QMessageBox::Cancel);
+            }
+
+        }
 }
 
 void MainWindow::selectItem(const int itemType)
@@ -197,7 +197,10 @@ void MainWindow::createMenu()
     del->setStatusTip(tr("resets current scheme to clear space"));
     connect(del, &QAction::triggered, this, &MainWindow::deleteScheme);
 
-    load = menuBar()->addMenu(tr("Load Scheme"));
+    load = menuBar()->addAction(tr("&Load scheme"));
+    load->setShortcuts(QKeySequence::Open);
+    load->setStatusTip(tr("load scheme from file"));
+    connect(load, &QAction::triggered, this, &MainWindow::loadScheme);
 
     simAll = menuBar()->addAction(tr("&Simulate all"));
     simAll->setShortcuts(QKeySequence::InsertParagraphSeparator);

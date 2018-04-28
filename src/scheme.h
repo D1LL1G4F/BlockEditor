@@ -4,7 +4,6 @@
 #include <vector>
 #include "block.h"
 #include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
 
 namespace json = boost::property_tree;
 

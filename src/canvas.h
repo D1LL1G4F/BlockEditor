@@ -10,6 +10,10 @@
 #include "scheme.h"
 #include "port.h"
 
+#include <boost/property_tree/ptree.hpp>
+
+namespace json = boost::property_tree;
+
 class MainWindow;
 
 
@@ -27,7 +31,7 @@ public:
     }
     Scheme* getScheme();
     void changeRectColor(int idx, QColor color);
-    void setScheme(Scheme newScheme);
+    void setScheme(json::ptree root);
 
 private slots:
 

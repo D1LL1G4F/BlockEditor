@@ -66,10 +66,11 @@ private:
    Canvas *canvas;
 
    QGraphicsView *view;
-   QMenu *load;
+
    std::vector<QAction*> savedSchemes;
    QAction *save;
    QAction *del;
+   QAction *load;
    QAction *simAll;
    QAction *simStep;
    QAction *simReset;

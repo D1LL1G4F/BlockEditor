@@ -7,8 +7,14 @@
 
 Linker::Linker(QLabel *output, Port *source, Port *dest, qreal x1, qreal y1, qreal x2, qreal y2, QGraphicsItem *parent) : QGraphicsLineItem(x1,y1,x2,y2,parent)
 {
-    if ((source->isOut() == dest->isOut()) || source->blockPtr == dest->blockPtr || source->getType() != dest->getType()) {
-        throw 1;
+    if (source->isOut() == dest->isOut()) {
+       throw "(cannot connect two output ports or two input ports)";
+    }
+    if (source->blockPtr == dest->blockPtr) {
+        throw "(cannot connect two ports of the same block)";
+    }
+    if (source->getType() != dest->getType()) {
+        throw "(cannot connect binary port with decimal)";
     }
     if (source->isOut()) {
         srcPort = source;

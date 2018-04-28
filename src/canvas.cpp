@@ -6,6 +6,7 @@
 #include "mainwindow.h"
 #include "linker.h"
 #include <QMessageBox>
+#include <string>
 
 #define BLOCK_WIDTH 75
 #define BLOCK_HEIGHT 125
@@ -78,6 +79,17 @@ void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             reloadScheme();
             return;
         }
+        if (item->data(1) == "Block" && parentWindow->getSelectedItem() == MainWindow::ITEM_DESTRUCTOR) {
+            scheme.removeBLock(item->data(0).toInt());
+            reloadScheme();
+            return;
+        }
+        if (item->data(0) == "Linker" && parentWindow->getSelectedItem() == MainWindow::ITEM_DESTRUCTOR) {
+            scheme.removeLinkOnPort(item->data(1).toDouble(),item->data(2).toDouble());
+            reloadScheme();
+            parentWindow->getOutputScr()->setText("");
+            return;
+        }
         Additem(mouseEvent->scenePos().x(), mouseEvent->scenePos().y());
     }
 }
@@ -128,10 +140,17 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         try {
             line = new Linker(parentWindow->getOutputScr(), sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
             line->setZValue(1);
+            line->setData(0,"Linker");
+            line->setData(1,sourceX);
+            line->setData(2,sourceY);
+            line->setData(3,targetX);
+            line->setData(4,targetY);
         }
-        catch (int a){
+        catch (char const *error){
+            std::string msg("Incompatible port types ");
+            msg += string(error);
             err = true;
-            QMessageBox::warning(NULL, tr("BlockEditor WARNING"), tr("Incompatible port types"), QMessageBox::Cancel);
+            QMessageBox::warning(NULL, tr("BlockEditor WARNING"), tr(msg.c_str()), QMessageBox::Cancel);
         }
         if (!err) {
             addItem(line);
@@ -152,8 +171,7 @@ void Canvas::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
     } else if (parentWindow->getSelectedItem() == MainWindow::ITEM_MOVER && movingBlock) {
         movingBlock->setCoords(mouseEvent->scenePos().x(),mouseEvent->scenePos().y());
         reloadScheme();
-    }
-    else {
+    } else {
         QGraphicsScene::mouseMoveEvent(mouseEvent);
     }
 }
@@ -326,10 +344,17 @@ void Canvas::reloadScheme()
                 try {
                     line = new Linker(parentWindow->getOutputScr(), outPort,outPort->pairedPort,outPort->getX()+8,outPort->getY()+8, outPort->pairedPort->getX()+8, outPort->pairedPort->getY()+8);
                     line->setZValue(1);
+                    line->setData(0,"Linker");
+                    line->setData(1,outPort->getX());
+                    line->setData(2,outPort->getY());
+                    line->setData(3,outPort->pairedPort->getX());
+                    line->setData(4,outPort->pairedPort->getY());
                 }
-                catch (int a){
+                catch (char const *error){
+                    std::string msg("Incompatible port types ");
+                    msg += string(error);
                     err = true;
-                    QMessageBox::warning(NULL, tr("BlockEditor WARNING"), tr("Incompatible port types"), QMessageBox::Cancel);
+                    QMessageBox::warning(NULL, tr("BlockEditor WARNING"), tr(msg.c_str()), QMessageBox::Cancel);
                 }
                 if (!err) {
                     addItem(line);

@@ -25,7 +25,7 @@ std::vector<int> Scheme::simulateStep()
         throw "empty scheme!";
     }
     if (!isSchemeComplete()) {
-        throw "scheme is incomplete!";
+        throw "scheme is incomplete! /set undefined port (red circles) with right click/";
     }
     std::vector<int> calculatedIndexes;
     std::vector<Block *> toBeCalculated;
@@ -59,6 +59,38 @@ Block* Scheme::addBlock(Block *block) {
     blocks.push_back(block);
 
     return blocks.back();
+}
+
+void Scheme::removeBLock(int idx)
+{
+    Block *b;
+    b = getBlock(idx);
+    if (!b)
+        return;
+    for (int i = 0; i < b->inPortsNumber; i++) {
+        Port *p;
+        p = b->getInPort(i);
+        if (p->pairedPort)
+            p->pairedPort->pairedPort = nullptr;
+    }
+    for (int i = 0; i < b->outPortsNumber; i++) {
+        Port *p;
+        p = b->getOutPort(i);
+        if (p->pairedPort)
+            p->pairedPort->pairedPort = nullptr;
+    }
+    blocks.erase(blocks.begin()+idx);
+}
+
+void Scheme::removeLinkOnPort(double x, double y)
+{
+    Port *p;
+    p = getPortByCoords(x,y);
+    if (!p)
+        return;
+    if (p->pairedPort)
+        p->pairedPort->pairedPort = nullptr;
+    p->pairedPort = nullptr;
 }
 
 void Scheme::clear() {

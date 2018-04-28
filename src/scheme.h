@@ -25,6 +25,8 @@ public:
     void loadScheme(json::ptree root);
 
     Block* addBlock(Block *block);
+    void removeBLock(int idx);
+    void removeLinkOnPort(double x, double y);
 
     void clear();
 

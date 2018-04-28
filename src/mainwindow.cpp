@@ -138,6 +138,10 @@ void MainWindow::selectItem(const int itemType)
 
 void MainWindow::simulateAll()
 {
+    if (canvas->getScheme()->isSchemeLooped()) {
+        QMessageBox::warning(this, tr("BlockEditor WARNING"), tr("Loops detected in scheme"), QMessageBox::Cancel);
+        return;
+    }
     while (!canvas->getScheme()->isSimulationFinished()) {
         simulateStep();
     }

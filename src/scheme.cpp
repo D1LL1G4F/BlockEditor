@@ -25,7 +25,7 @@ std::vector<int> Scheme::simulateStep()
         throw "empty scheme!";
     }
     if (!isSchemeComplete()) {
-        throw "scheme is incomplete! /set undefined port (red circles) with right click/";
+        throw "scheme is incomplete! (set undefined port (red circles) with right click)";
     }
     std::vector<int> calculatedIndexes;
     std::vector<Block *> toBeCalculated;

@@ -41,25 +41,17 @@ QLabel *MainWindow::getOutputScr()
 
 void MainWindow::saveScheme()
 {
-    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Scheme"), "new_scheme",tr("All files (*)"));
+    QString fileName = QFileDialog::getSaveFileName(this,tr("Save Scheme"), "new_scheme.schm",tr("Scheme files (*.schm)"));
 
     if (fileName.isEmpty()) {
         QMessageBox::warning(this, tr("BlockEditor error"), tr("File name cannot be empty"), QMessageBox::Cancel);
         return;
     }
     else {
-        QFile file(fileName);
-        if (!file.open(QIODevice::WriteOnly)) {
-            QMessageBox::information(this, tr("Unable to open file"), file.errorString());
-            return;
-        }
             resetSim();
             json::ptree root;
-            stringstream jsonStream;
-            json::write_json(jsonStream,root);
-            QDataStream out(&file);
-            out << jsonStream;
-            file.close();
+            root = canvas->getScheme()->serializeToJson();
+            json::write_json(fileName.toStdString(),root);
         }
 }
 
@@ -71,7 +63,7 @@ void MainWindow::deleteScheme()
 
 void MainWindow::loadScheme()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Load scheme"), "",tr("All files (*)"));
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Load scheme"), "",tr("Scheme files (*.schm)"));
 
         if (fileName.isEmpty()) {
             QMessageBox::warning(this, tr("BlockEditor error"), tr("Cannot load selected file"), QMessageBox::Cancel);

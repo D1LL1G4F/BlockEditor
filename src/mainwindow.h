@@ -36,6 +36,8 @@ public:
    static const int ITEM_GT = 6;
    static const int ITEM_LT = 7;
    static const int ITEM_LINKER = 8;
+   static const int ITEM_MOVER = 9;
+   static const int ITEM_DESTRUCTOR = 10;
 
    int getSelectedItem();
    QLabel *getOutputScr();
@@ -83,6 +85,8 @@ private:
    QPushButton *buttonGT;
    QPushButton *buttonLT;
    QPushButton *buttonLinker;
+   QPushButton *buttonMover;
+   QPushButton *buttonDestructor;
    QLabel *output;
 
 

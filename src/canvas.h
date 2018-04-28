@@ -29,6 +29,7 @@ public:
         clear();
         scheme.clear();
     }
+    void reloadScheme();
     Scheme* getScheme();
     void changeRectColor(int idx, QColor color);
     void setScheme(json::ptree root);
@@ -47,13 +48,13 @@ private:
     QString getActualBlockName(int type);
     void changeCircleColor(QGraphicsItem *item, QColor color);
     Port *getPortPtrFromItem(QGraphicsItem *item);
-    void reloadScheme();
     MainWindow *parentWindow;
     Scheme scheme;
     QGraphicsItem *sourceItem;
     std::vector<QGraphicsItem*> blockItems;
     bool lineSourceValid;
     QGraphicsLineItem *tmpLine;
+    Block *movingBlock;
 
 
 };

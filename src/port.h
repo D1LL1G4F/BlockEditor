@@ -24,6 +24,7 @@ public:
     bool isSet();
     string getType();
     double getValue();
+    void setCoords(double x, double y);
     double getX();
     double getY();
     void set(double val);

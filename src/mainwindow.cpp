@@ -95,6 +95,8 @@ void MainWindow::selectItem(const int itemType)
     buttonGT->setStyleSheet("QPushButton{ background-color: lightgrey; }");
     buttonLT->setStyleSheet("QPushButton{ background-color: lightgrey; }");
     buttonLinker->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonMover->setStyleSheet("QPushButton{ background-color: lightgrey; }");
+    buttonDestructor->setStyleSheet("QPushButton{ background-color: lightgrey; }");
 
     switch (selectedItem) {
     case ITEM_ADD:
@@ -123,6 +125,12 @@ void MainWindow::selectItem(const int itemType)
         break;
     case ITEM_XOR:
         buttonXOR->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_MOVER:
+        buttonMover->setStyleSheet("QPushButton{ background-color: lightblue; }");
+        break;
+    case ITEM_DESTRUCTOR:
+        buttonDestructor->setStyleSheet("QPushButton{ background-color: lightblue; }");
         break;
     default:
         break;
@@ -178,6 +186,7 @@ void MainWindow::resetSim()
     for (int i = 0; i < canvas->getScheme()->getLastBlockIndex()+1; i++) {
         canvas->changeRectColor(i,QColor(0,0,0,255));
     }
+    canvas->reloadScheme();
 }
 
 void MainWindow::createMenu()
@@ -235,6 +244,10 @@ void MainWindow::createButtons()
     connect(buttonLT, SIGNAL(clicked()), signalMapper, SLOT(map()));
     buttonLinker = new QPushButton("Linker");
     connect(buttonLinker, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    buttonMover = new QPushButton("Mover");
+    connect(buttonMover, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    buttonDestructor = new QPushButton("Destructor");
+    connect(buttonDestructor, SIGNAL(clicked()), signalMapper, SLOT(map()));
 
     signalMapper -> setMapping (buttonAND, ITEM_AND);
     signalMapper -> setMapping (buttonNAND, ITEM_NAND);
@@ -245,6 +258,8 @@ void MainWindow::createButtons()
     signalMapper -> setMapping (buttonGT, ITEM_GT);
     signalMapper -> setMapping (buttonLT, ITEM_LT);
     signalMapper -> setMapping (buttonLinker, ITEM_LINKER);
+    signalMapper -> setMapping (buttonMover, ITEM_MOVER);
+    signalMapper -> setMapping (buttonDestructor, ITEM_DESTRUCTOR);
 
     connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(selectItem(int)));
 
@@ -261,6 +276,8 @@ void MainWindow::createButtons()
     layout->addWidget(buttonGT);
     layout->addWidget(buttonLT);
     layout->addWidget(buttonLinker);
+    layout->addWidget(buttonMover);
+    layout->addWidget(buttonDestructor);
     layout->addWidget(output);
 
     leftBar = new QWidget;

@@ -16,6 +16,8 @@ Block::Block(int type, double x, double y, double width, double height)
    blockType = type;
    inPortsNumber = 2;
    outPortsNumber = 1;
+   blockHeight = height;
+   blockWidth = width;
 
    string portTypeIn, portTypeOut;
 
@@ -51,6 +53,19 @@ Block::Block(int type, double x, double y, double width, double height)
    for (int i = 0; i < outPortsNumber; i++) {
        outPorts.push_back(Port(portTypeOut,this,x+width-20,y + (height/outPortsNumber)*(i+0.5)));
    }
+}
+
+void Block::setCoords(double xCoord, double yCoord)
+{
+    x = xCoord;
+    y = yCoord;
+    for (int i = 0; i < inPortsNumber; i++) {
+        getInPort(i)->setCoords(x+8,y + (blockHeight/inPortsNumber)*(i+0.5));
+    }
+    for (int i = 0; i < outPortsNumber; i++) {
+        getOutPort(i)->setCoords(x+blockWidth-20,y + (blockHeight/outPortsNumber)*(i+0.5));
+    }
+
 }
 
 double Block::getX() {

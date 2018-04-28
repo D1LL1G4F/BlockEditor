@@ -15,6 +15,7 @@ Canvas::Canvas(MainWindow *parent) : QGraphicsScene(parent)
 {
     parentWindow = parent;
     lineSourceValid = false;
+    movingBlock = nullptr;
 }
 
 Scheme *Canvas::getScheme()
@@ -24,7 +25,7 @@ Scheme *Canvas::getScheme()
 
 void Canvas::Additem(qreal x, qreal y)
 {
-    if (parentWindow->getSelectedItem() != MainWindow::ITEM_LINKER) {
+    if (parentWindow->getSelectedItem() < MainWindow::ITEM_LINKER) {
         createBlock(x,y);
     }
 }
@@ -71,13 +72,25 @@ void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 return;
             }
         }
-    Additem(mouseEvent->scenePos().x(), mouseEvent->scenePos().y());
+        if (item->data(1) == "Block" && parentWindow->getSelectedItem() == MainWindow::ITEM_MOVER) {
+            movingBlock = scheme.getBlock(item->data(0).toInt());
+            movingBlock->setCoords(mouseEvent->scenePos().x(),mouseEvent->scenePos().y());
+            reloadScheme();
+            return;
+        }
+        Additem(mouseEvent->scenePos().x(), mouseEvent->scenePos().y());
     }
 }
 
 void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (mouseEvent->button() != Qt::LeftButton) {
+        return;
+    }
+    if (movingBlock && parentWindow->getSelectedItem() == MainWindow::ITEM_MOVER) {
+        movingBlock->setCoords(mouseEvent->scenePos().x(),mouseEvent->scenePos().y());
+        reloadScheme();
+        movingBlock = nullptr;
         return;
     }
     if (parentWindow->getSelectedItem() == MainWindow::ITEM_LINKER) {
@@ -136,7 +149,11 @@ void Canvas::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
         pen.setWidth(6);
         pen.setColor(QColor(0,0,255,255));
         tmpLine = addLine(getPortPtrFromItem(sourceItem)->getX()+8,getPortPtrFromItem(sourceItem)->getY()+8,mouseEvent->scenePos().x(),mouseEvent->scenePos().y(),pen);
-    } else {
+    } else if (parentWindow->getSelectedItem() == MainWindow::ITEM_MOVER && movingBlock) {
+        movingBlock->setCoords(mouseEvent->scenePos().x(),mouseEvent->scenePos().y());
+        reloadScheme();
+    }
+    else {
         QGraphicsScene::mouseMoveEvent(mouseEvent);
     }
 }
@@ -162,6 +179,7 @@ void Canvas::createBlock(double x, double y)
     this->addItem(txt);
     Block *b = scheme.addBlock(new Block(parentWindow->getSelectedItem(), x, y, rWidth, rHeight));
     blockItem->setData(0,QVariant(scheme.getLastBlockIndex()));
+    blockItem->setData(1,QVariant("Block"));
     blockItems.push_back(blockItem);
     pen.setColor(QColor(255,0,0,255));
     for (int i=0; i < b->inPortsNumber; i++) { // draw in ports
@@ -269,6 +287,7 @@ void Canvas::reloadScheme()
         txt->setPlainText(getActualBlockName(blck->getType()));
         this->addItem(txt);
         blockItem->setData(0,QVariant(blockIdx));
+        blockItem->setData(1,QVariant("Block"));
         blockItems.push_back(blockItem);
         pen.setColor(QColor(255,0,0,255));
         for (int i=0; i < blck->inPortsNumber; i++) { // draw in ports

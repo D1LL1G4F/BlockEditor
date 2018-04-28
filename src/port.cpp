@@ -21,6 +21,12 @@ double Port::getValue()
     return value;
 }
 
+void Port::setCoords(double x, double y)
+{
+    xCoord = x;
+    yCoord = y;
+}
+
 double Port::getX()
 {
     return xCoord;

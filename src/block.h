@@ -24,6 +24,7 @@ public:
 
     Block(int type, double x, double y, double width, double height);
 
+    void setCoords(double xCoord, double yCoord);
     void calculate();
     Port* getInPort(int index);
     Port* getOutPort(int index);
@@ -40,6 +41,8 @@ private:
     vector<Port> outPorts;
 
     double x, y;
+    double blockHeight;
+    double blockWidth;
 };
 
 #endif // BLOCK_H

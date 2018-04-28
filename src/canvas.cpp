@@ -114,6 +114,7 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
         bool err = false;
         try {
             line = new Linker(parentWindow->getOutputScr(), sourcePort,destPort,sourceX+8,sourceY+8, targetX+8, targetY+8);
+            line->setZValue(1);
         }
         catch (int a){
             err = true;
@@ -168,6 +169,7 @@ void Canvas::createBlock(double x, double y)
         circle->setData(0,QVariant("INPUT"));
         circle->setData(1,QVariant(i));
         circle->setData(2,QVariant(scheme.getLastBlockIndex()));
+        circle->setZValue(100);
         QGraphicsTextItem * portTxt = new QGraphicsTextItem;
         portTxt->setPos(b->getInPort(i)->getX()+5,b->getInPort(i)->getY()+12);
         portTxt->setPlainText(QString("in") + QString::number(i,10));
@@ -179,6 +181,7 @@ void Canvas::createBlock(double x, double y)
         circle->setData(0,QVariant("OUTPUT"));
         circle->setData(1,QVariant(i));
         circle->setData(2,QVariant(scheme.getLastBlockIndex()));
+        circle->setZValue(100);
         QGraphicsTextItem * portTxt = new QGraphicsTextItem;
         portTxt->setPos(b->getOutPort(i)->getX()-15,b->getOutPort(i)->getY()+12);
         portTxt->setPlainText(QString("out") + QString::number(i,10));
@@ -272,6 +275,7 @@ void Canvas::reloadScheme()
             circle->setData(0,QVariant("INPUT"));
             circle->setData(1,QVariant(i));
             circle->setData(2,QVariant(blockIdx));
+            circle->setZValue(100);
             QGraphicsTextItem * portTxt = new QGraphicsTextItem;
             portTxt->setPos(blck->getInPort(i)->getX()+5,blck->getInPort(i)->getY()+12);
             portTxt->setPlainText(QString("in") + QString::number(i,10));
@@ -283,6 +287,7 @@ void Canvas::reloadScheme()
             circle->setData(0,QVariant("OUTPUT"));
             circle->setData(1,QVariant(i));
             circle->setData(2,QVariant(blockIdx));
+            circle->setZValue(100);
             QGraphicsTextItem * portTxt = new QGraphicsTextItem;
             portTxt->setPos(blck->getOutPort(i)->getX()-15,blck->getOutPort(i)->getY()+12);
             portTxt->setPlainText(QString("out") + QString::number(i,10));
@@ -300,6 +305,7 @@ void Canvas::reloadScheme()
                 bool err = false;
                 try {
                     line = new Linker(parentWindow->getOutputScr(), outPort,outPort->pairedPort,outPort->getX()+8,outPort->getY()+8, outPort->pairedPort->getX()+8, outPort->pairedPort->getY()+8);
+                    line->setZValue(1);
                 }
                 catch (int a){
                     err = true;
@@ -312,6 +318,13 @@ void Canvas::reloadScheme()
                     QGraphicsItem *secondCircle = this->itemAt(outPort->pairedPort->getX()+2,outPort->pairedPort->getY()+2,QTransform());
                     changeCircleColor(secondCircle,QColor(0,0,255,255));
                 }
+            }
+        }
+        for (int i=0; i < blck->inPortsNumber; i++) { // configure set ports
+            Port *p;
+            p = blck->getInPort(i);
+            if (p->isSet()) {
+                changeCircleColor(this->itemAt(p->getX()+2,p->getY()+2,QTransform()),QColor(0,255,0,255));
             }
         }
     }

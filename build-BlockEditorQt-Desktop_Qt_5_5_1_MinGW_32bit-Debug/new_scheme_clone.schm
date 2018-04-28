@@ -1,0 +1,118 @@
+{
+    "Blocks": {
+        "block": {
+            "inPortsNumber": "2",
+            "outPortsNumber": "1",
+            "blockType": "0",
+            "x": "166",
+            "y": "145",
+            "inputPorts": {
+                "Port": {
+                    "type": "logical",
+                    "value": "1",
+                    "status": "true",
+                    "x": "174",
+                    "y": "176.25",
+                    "pairedPortX": "-1",
+                    "pairedPortY": "-1"
+                },
+                "Port": {
+                    "type": "logical",
+                    "value": "1",
+                    "status": "true",
+                    "x": "174",
+                    "y": "238.75",
+                    "pairedPortX": "-1",
+                    "pairedPortY": "-1"
+                }
+            },
+            "outputPorts": {
+                "Port": {
+                    "type": "logical",
+                    "value": "0",
+                    "status": "false",
+                    "x": "221",
+                    "y": "207.5",
+                    "pairedPortX": "410",
+                    "pairedPortY": "296.25"
+                }
+            }
+        },
+        "block": {
+            "inPortsNumber": "2",
+            "outPortsNumber": "1",
+            "blockType": "0",
+            "x": "186",
+            "y": "392",
+            "inputPorts": {
+                "Port": {
+                    "type": "logical",
+                    "value": "1",
+                    "status": "true",
+                    "x": "194",
+                    "y": "423.25",
+                    "pairedPortX": "-1",
+                    "pairedPortY": "-1"
+                },
+                "Port": {
+                    "type": "logical",
+                    "value": "1",
+                    "status": "true",
+                    "x": "194",
+                    "y": "485.75",
+                    "pairedPortX": "-1",
+                    "pairedPortY": "-1"
+                }
+            },
+            "outputPorts": {
+                "Port": {
+                    "type": "logical",
+                    "value": "0",
+                    "status": "false",
+                    "x": "241",
+                    "y": "454.5",
+                    "pairedPortX": "410",
+                    "pairedPortY": "358.75"
+                }
+            }
+        },
+        "block": {
+            "inPortsNumber": "2",
+            "outPortsNumber": "1",
+            "blockType": "0",
+            "x": "402",
+            "y": "265",
+            "inputPorts": {
+                "Port": {
+                    "type": "logical",
+                    "value": "0",
+                    "status": "false",
+                    "x": "410",
+                    "y": "296.25",
+                    "pairedPortX": "221",
+                    "pairedPortY": "207.5"
+                },
+                "Port": {
+                    "type": "logical",
+                    "value": "0",
+                    "status": "false",
+                    "x": "410",
+                    "y": "358.75",
+                    "pairedPortX": "241",
+                    "pairedPortY": "454.5"
+                }
+            },
+            "outputPorts": {
+                "Port": {
+                    "type": "logical",
+                    "value": "0",
+                    "status": "false",
+                    "x": "457",
+                    "y": "327.5",
+                    "pairedPortX": "-1",
+                    "pairedPortY": "-1"
+                }
+            }
+        }
+    }
+}

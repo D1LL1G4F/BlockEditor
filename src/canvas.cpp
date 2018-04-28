@@ -19,6 +19,13 @@ Canvas::Canvas(MainWindow *parent) : QGraphicsScene(parent)
     movingBlock = nullptr;
 }
 
+void Canvas::clearAll()
+{
+    clear();
+    scheme.clear();
+    blockItems.clear();
+}
+
 Scheme *Canvas::getScheme()
 {
     return &scheme;

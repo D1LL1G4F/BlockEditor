@@ -95,6 +95,7 @@ void Scheme::removeLinkOnPort(double x, double y)
 
 void Scheme::clear() {
     blocks.clear();
+    alreadyCalculated.clear();
 }
 
 bool Scheme::isLooped(Block *block, int maxDepth,int currentDepth)

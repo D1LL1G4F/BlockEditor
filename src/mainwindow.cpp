@@ -140,24 +140,27 @@ void MainWindow::simulateAll()
 void MainWindow::simulateStep()
 {
     if (canvas->getScheme()->isSchemeLooped()) {
-        qDebug() << "loop";
         QMessageBox::warning(this, tr("BlockEditor WARNING"), tr("Loops detected in scheme"), QMessageBox::Cancel);
     }
     if (canvas->getScheme()->isSimulationFinished()) {
         return;
     }
     std::vector<int> blocks;
+    bool succ = true;
     try {
         blocks = canvas->getScheme()->simulateStep();
+    }
+    catch (char const *error) {
+        succ = false;
+        QMessageBox::warning(this, tr("BlockEditor WARNING"), tr(error), QMessageBox::Cancel);
+    }
+    if (succ) {
         for (int i = 0; i < canvas->getScheme()->getLastBlockIndex()+1; i++) {
             canvas->changeRectColor(i,QColor(0,0,0,255));
         }
         for (int block : blocks) {
             canvas->changeRectColor(block,QColor(255,0,0,255));
         }
-    }
-    catch (char const *error) {
-        QMessageBox::warning(this, tr("BlockEditor WARNING"), tr(error), QMessageBox::Cancel);
     }
     if (canvas->getScheme()->isSimulationFinished()) {
         QString results = "";

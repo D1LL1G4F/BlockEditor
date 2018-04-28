@@ -240,8 +240,6 @@ void Scheme::loadScheme(boost::property_tree::ptree root)
         blockType = blockNode.second.get<int>("blockType");
         x = blockNode.second.get<double>("x");
         y = blockNode.second.get<double>("y");
-        qDebug() << x;
-        qDebug() << y;
         Block *b;
         b = addBlock(new Block(blockType,x,y,BLOCK_WIDTH,BLOCK_HEIGHT));
         int iter = 0;

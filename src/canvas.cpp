@@ -253,6 +253,7 @@ void Canvas::reloadScheme()
 {
     scheme.resetSimulation();
     clear();
+    blockItems.clear();
     for (int blockIdx = 0; blockIdx < scheme.getLastBlockIndex()+1 ; blockIdx++) {
         Block *blck;
         blck = scheme.getBlock(blockIdx);
@@ -332,7 +333,7 @@ void Canvas::reloadScheme()
 
 void Canvas::changeRectColor(int idx, QColor color)
 {
-    QGraphicsItem *blckItem = blockItems.at(idx);
+    QGraphicsItem *blckItem = blockItems[idx];
     Block *block = scheme.getBlock(idx);
     delete blckItem;
     QPen pen = QPen();

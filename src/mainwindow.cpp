@@ -1,3 +1,9 @@
+/*! \file      mainwindow.cpp
+ *  \brief     definitions of MainWindow class
+ *  \author    Matej Knazik
+ *  \date      2018
+ */
+
 #include "mainwindow.h"
 #include "scheme.h"
 #include <QMessageBox>

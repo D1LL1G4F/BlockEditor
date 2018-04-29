@@ -1,3 +1,9 @@
+/*! \file      linker.cpp
+ *  \brief     definitoins of Linker class
+ *  \author    Matej Knazik
+ *  \date      2018
+ */
+
 #include "linker.h"
 #include <QPen>
 #include <QDebug>

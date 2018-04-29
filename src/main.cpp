@@ -1,3 +1,9 @@
+/*! \file      main.cpp
+ *  \brief     BlockEditor application for creating and editing schemes
+ *  \author    Matej Knazik
+ *  \date      2018
+ */
+
 #include "mainwindow.h"
 
 #include <QApplication>

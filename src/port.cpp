@@ -1,3 +1,9 @@
+/*! \file      port.cpp
+ *  \brief     contains definitions of port class methods
+ *  \author    Matej Knazik
+ *  \date      2018
+ */
+
 #include "port.h"
 
 Port::Port(string portType, Block *parentPtr, double x, double y)
@@ -9,6 +15,11 @@ Port::Port(string portType, Block *parentPtr, double x, double y)
     pairedPort = nullptr;
     status = false;
     value = 0;
+}
+
+Port::~Port()
+{
+
 }
 
 string Port::getType()

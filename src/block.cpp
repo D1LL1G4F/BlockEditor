@@ -1,3 +1,9 @@
+/*! \file      block.cpp
+ *  \brief     contains definitions of block class methods
+ *  \author    Matej Knazik
+ *  \date      2018
+ */
+
 #include "block.h"
 #include "mainwindow.h"
 #include <iostream>

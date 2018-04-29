@@ -55,6 +55,12 @@ Block::Block(int type, double x, double y, double width, double height)
    }
 }
 
+Block::~Block()
+{
+    inPorts.clear();
+    outPorts.clear();
+}
+
 void Block::setCoords(double xCoord, double yCoord)
 {
     x = xCoord;

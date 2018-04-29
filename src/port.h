@@ -9,7 +9,10 @@ using namespace std;
 
 class Block;
 
-
+//!  Port class
+/*!
+  A backend class representing port inside block.
+*/
 class Port
 {
 public:

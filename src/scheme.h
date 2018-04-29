@@ -7,6 +7,10 @@
 
 namespace json = boost::property_tree;
 
+//!  Scheme class
+/*!
+  A backend class representing single scheme.
+*/
 class Scheme
 {
 

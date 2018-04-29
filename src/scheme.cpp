@@ -1,3 +1,9 @@
+/*! \file      scheme.cpp
+ *  \brief     contains definitions of Scheme class methods
+ *  \author    Matej Knazik
+ *  \date      2018
+ */
+
 #include "scheme.h"
 
 namespace json = boost::property_tree;
@@ -8,6 +14,12 @@ namespace json = boost::property_tree;
 Scheme::Scheme()
 {
 
+}
+
+Scheme::~Scheme()
+{
+    alreadyCalculated.clear();
+    blocks.clear();
 }
 
 bool Scheme::isSchemeLooped()

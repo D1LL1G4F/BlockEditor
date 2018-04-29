@@ -1,3 +1,9 @@
+/*! \file      canvas.cpp
+ *  \brief     definitions of Canvas class
+ *  \author    Matej Knazik
+ *  \date      2018
+ */
+
 #include "canvas.h"
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>

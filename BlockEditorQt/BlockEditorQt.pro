@@ -22,7 +22,6 @@ HEADERS += \
 SOURCES += \
     ../src/block.cpp \
     ../src/port.cpp \
-    ../test.cpp \
     ../src/main.cpp \
     ../src/mainwindow.cpp \
     ../src/scheme.cpp \

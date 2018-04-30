@@ -48,7 +48,7 @@ void Linker::hoverEnterEvent(QGraphicsSceneHoverEvent *evnt)
     setPen(pen);
     prevOutput = outputScr->text();
     if (srcPort->isSet()) {
-        outputScr->setText(QString("Current value: ") + QString::number(srcPort->getValue()));
+        outputScr->setText(QString("Current value: \n") + QString::number(srcPort->getValue()));
     } else {
         outputScr->setText(QString("Current value: \nundefined"));
     }

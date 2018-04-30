@@ -1,5 +1,7 @@
 QT    += widgets
 
+TARGET = blockeditor
+
 CONFIG += c++14
 
 INCLUDEPATH += \

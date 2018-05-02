@@ -4,6 +4,8 @@ TARGET = blockeditor
 
 CONFIG += c++14
 
+DESTDIR = ../
+
 INCLUDEPATH += \
     ../src
 

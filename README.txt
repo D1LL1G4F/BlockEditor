@@ -2,7 +2,9 @@ ICP projekt
 
 Aplikácia BlockEditor
 
-Autor: Matej Kòazík (xknazi00)
+Autori: Matej Kòazík (xknazi00)
+	Vladimír Lovíšek (xlovis03)
+
 
 
 

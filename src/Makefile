@@ -3,5 +3,5 @@
 
 NAME = blockeditor
 
-$(NAME):
+all:
 	qmake BlockEditorQt.pro
